@@ -45,7 +45,9 @@ class Article {
     this.content = content;
     this.writer = writer;
     this._likeCount = likeCount;
-    this.createdAt = new Date(); //심화요구사항
+    const currentDate = new Date();
+    currentDate.setHours(currentDate.getHours() + 9);
+    this.createdAt = currentDate.toISOString(); //심화요구사항
   }
 
   get likeCount() {
