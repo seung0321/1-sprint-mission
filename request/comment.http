@@ -1,0 +1,23 @@
+###
+GET http://localhost:3000/comments?boardType=products&limit=5&cursor=2025-02-21T07:39:25.304Z
+
+###
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+  "content": "제가 한번 사고 싶습니다",
+  "productId": "f8013040-b076-4dc4-8677-11be9a17162f",  
+  "boardType": "products"  
+}
+
+###
+PATCH http://localhost:3000/comments/d738ca01-6e75-48c8-bb2a-e0d826acfabd
+Content-Type: application/json
+
+{
+  "content": "아직 안팔렸나요?"
+}
+
+###
+DELETE http://localhost:3000/comments/d99cc396-e1f7-46f5-8665-abf4f98d46f1
