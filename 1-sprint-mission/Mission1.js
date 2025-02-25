@@ -20,7 +20,7 @@ class Product {
   }
 
   favorite() {
-    this._favoriteCount += 1;
+    this._favoriteCount++;
   }
 }
 
@@ -61,7 +61,7 @@ class Article {
     }
   }
   like() {
-    this._likeCount += 1;
+    this._likeCount++;
   }
 }
 
