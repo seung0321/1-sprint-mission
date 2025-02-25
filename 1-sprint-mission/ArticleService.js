@@ -1,7 +1,9 @@
+const baseUrl = "https://panda-market-api-crud.vercel.app";
+
 const articleAPI = {
   getArticleList(page, pageSize, keyword) {
     fetch(
-      `https://panda-market-api-crud.vercel.app/articles?page=${page}&pageSize=${pageSize}&orderBy=recent&keyword=${keyword}`,
+      `${baseUrl}/articles?page=${page}&pageSize=${pageSize}&orderBy=recent&keyword=${keyword}`,
       {
         method: "GET",
         headers: {
@@ -11,15 +13,15 @@ const articleAPI = {
     )
       .then((response) => {
         if (!response.ok) {
-          return Promise.reject("실패");
+          return Promise.reject(`${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        return data;
       })
       .catch((error) => {
-        console.error("에러", error);
+        throw error;
       })
       .finally(() => {
         console.log(`end`);
@@ -27,7 +29,7 @@ const articleAPI = {
   },
 
   getArticle(id) {
-    fetch(`https://panda-market-api-crud.vercel.app/articles/${id}`, {
+    fetch(`${baseUrl}/articles/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -35,15 +37,15 @@ const articleAPI = {
     })
       .then((response) => {
         if (!response.ok) {
-          return Promise.reject("실패");
+          return Promise.reject(`${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        return data;
       })
       .catch((error) => {
-        console.error("에러", error);
+        throw error;
       })
       .finally(() => {
         console.log("end");
@@ -57,7 +59,7 @@ const articleAPI = {
       title: "테스트 입니다.",
     };
 
-    fetch(`https://panda-market-api-crud.vercel.app/articles`, {
+    fetch(`${baseUrl}/articles`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,15 +68,15 @@ const articleAPI = {
     })
       .then((response) => {
         if (!response.ok) {
-          return Promise.reject("실패");
+          return Promise.reject(`${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        return data;
       })
       .catch((error) => {
-        console.error("에러", error);
+        throw error;
       })
       .finally(() => {
         console.log("end");
@@ -88,7 +90,7 @@ const articleAPI = {
       title: "수정 테스트 입니다.",
     };
 
-    fetch(`https://panda-market-api-crud.vercel.app/articles/${id}`, {
+    fetch(`${baseUrl}/articles/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -97,15 +99,15 @@ const articleAPI = {
     })
       .then((response) => {
         if (!response.ok) {
-          return Promise.reject("실패");
+          return Promise.reject(`${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        return data;
       })
       .catch((error) => {
-        console.error("에러", error);
+        throw error;
       })
       .finally(() => {
         console.log("end");
@@ -113,7 +115,7 @@ const articleAPI = {
   },
 
   deleteArticle(id) {
-    fetch(`https://panda-market-api-crud.vercel.app/articles/${id}`, {
+    fetch(`${baseUrl}/articles/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -121,16 +123,16 @@ const articleAPI = {
     })
       .then((response) => {
         if (!response.ok) {
-          return Promise.reject("실패");
+          return Promise.reject(`${response.status}`);
         }
         console.log("삭제되었습니다.");
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        return data;
       })
       .catch((error) => {
-        console.error("에러", error);
+        throw error;
       })
       .finally(() => {
         console.log("end");
