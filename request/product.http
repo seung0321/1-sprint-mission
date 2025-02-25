@@ -1,5 +1,6 @@
 ###
 GET http://localhost:3000/products
+
 ###
 GET http://localhost:3000/products/d2ff3048-83bc-425a-8ad3-d6d9af1c7c6d
 
@@ -20,6 +21,8 @@ Content-Type: application/json
     "tag": "KITCHENWARE"
   }
 
+
+
 ###
 PATCH http://localhost:3000/products/19b65fb9-6e5d-43cd-92bc-29036af7b6d
 Content-Type: application/json
@@ -33,3 +36,18 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/products/9729752d-bda0-4b66-8656-7c3a5c4455b7
+
+//render 배포
+###
+GET https://one-sprint-mission-ga3w.onrender.com/products
+
+###
+POST https://one-sprint-mission-ga3w.onrender.com/products
+Content-Type: application/json
+
+{
+    "name": "고급 도마",
+    "description": "무게감 있고 이름있는 고급 도마입니다.",
+    "price": 50000,
+    "tag": "KITCHENWARE"
+  }

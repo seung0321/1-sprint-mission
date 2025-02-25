@@ -29,3 +29,16 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/articles/8ba4f924-cf2f-4232-bc0e-a0bc78f18203
+
+//render 배포
+###
+GET https://one-sprint-mission-ga3w.onrender.com/articles
+
+###
+POST https://one-sprint-mission-ga3w.onrender.com/articles
+Content-Type: application/json
+
+{
+    "title": "손흥민 친필 싸인 구합니다",
+    "content": "비싸게 사드립니다. 연락주세요"
+  }
