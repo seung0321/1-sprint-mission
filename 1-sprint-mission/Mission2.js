@@ -16,6 +16,7 @@ function getArticleList(page, pageSize, keyword) {
     })
     .then((data) => {
       console.log(data);
+      return data;
     })
     .catch((error) => {
       console.error("에러", error);
@@ -40,6 +41,7 @@ function getArticle(id) {
     })
     .then((data) => {
       console.log(data);
+      return data;
     })
     .catch((error) => {
       console.error("에러", error);
@@ -71,6 +73,7 @@ function createArticle() {
     })
     .then((data) => {
       console.log(data);
+      return data;
     })
     .catch((error) => {
       console.error("에러", error);
@@ -101,6 +104,7 @@ function patchArticle(id) {
     })
     .then((data) => {
       console.log(data);
+      return data;
     })
     .catch((error) => {
       console.error("에러", error);
@@ -125,6 +129,7 @@ function deleteArticle(id) {
     })
     .then((data) => {
       console.log(data);
+      return data;
     })
     .catch((error) => {
       console.error("에러", error);
