@@ -99,7 +99,7 @@ async function getProductList(page, pageSize, keyword) {
 
 //-----------------------------------------------------------------------------
 
-class Articles {
+class Article {
   constructor(id, title, image, createdAt, updatedAt, content) {
     this.id = id;
     this.title = title;
@@ -130,7 +130,7 @@ async function getArticleList(page, pageSize, keyword) {
     }
     const data = await response.json();
     data.list.forEach((item) => {
-      const articles = new Articles(
+      const articles = new Article(
         item.id,
         item.title,
         item.image,
@@ -149,4 +149,4 @@ async function getArticleList(page, pageSize, keyword) {
 }
 
 getProductList(2, 10, "");
-//getArticleList(1, 10, "제목");
+getArticleList(1, 10, "제목");
