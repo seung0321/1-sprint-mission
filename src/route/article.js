@@ -14,12 +14,6 @@ ArticleRouter.route("/")
       let orderBy;
 
       switch (order) {
-        case "priceLowest":
-          orderBy = { price: "asc" };
-          break;
-        case "priceHighest":
-          orderBy = { price: "desc" };
-          break;
         case "oldest":
           orderBy = { createdAt: "asc" };
           break;
