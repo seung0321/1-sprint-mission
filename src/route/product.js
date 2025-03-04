@@ -45,7 +45,7 @@ ProductRouter.route("/")
       });
 
       console.log(products);
-      res.status(200).send(products);
+      res.status(200).json(products);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: error.message });
@@ -57,7 +57,7 @@ ProductRouter.route("/")
       const product = await prisma.product.create({
         data: req.body,
       });
-      res.send(product);
+      res.json(product);
     } catch (error) {
       console.error(error);
       res.status(400).json({ message: error.message });
@@ -75,7 +75,7 @@ ProductRouter.route("/:id")
         return res.status(404).json({ error: "Product not found" });
       }
       console.log(product);
-      res.send(product);
+      res.json(product);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: error.message });
@@ -89,10 +89,10 @@ ProductRouter.route("/:id")
         where: { id },
         data: req.body,
       });
-      res.send(product);
+      res.json(product);
     } catch (error) {
       console.error(error);
-      res.status(400).json({ message: e.message });
+      res.status(400).json({ message: error.message });
     }
   })
   .delete(async (req, res) => {

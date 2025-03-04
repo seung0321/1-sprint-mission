@@ -39,7 +39,7 @@ ArticleRouter.route("/")
       });
 
       console.log(articles);
-      res.status(200).send(articles);
+      res.status(200).json(articles);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: error.message });
@@ -51,7 +51,7 @@ ArticleRouter.route("/")
       const article = await prisma.article.create({
         data: req.body,
       });
-      res.send(article);
+      res.json(article);
     } catch (error) {
       console.error(error);
       res.status(400).json({ message: error.message });
@@ -69,7 +69,7 @@ ArticleRouter.route("/:id")
         return res.status(404).json({ error: "article not found" });
       }
       console.log(article);
-      res.send(article);
+      res.json(article);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: error.message });
@@ -83,10 +83,10 @@ ArticleRouter.route("/:id")
         where: { id },
         data: req.body,
       });
-      res.send(article);
+      res.json(article);
     } catch (error) {
       console.error(error);
-      res.status(400).json({ message: e.message });
+      res.status(400).json({ message: error.message });
     }
   })
   .delete(async (req, res) => {
