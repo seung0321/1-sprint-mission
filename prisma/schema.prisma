@@ -41,8 +41,8 @@ model Comment {
   boardType String
   createdAt DateTime @default(now())
 
-  product Product? @relation("ProductComments", fields: [productId], references: [id])
-  article Article? @relation("ArticleComments", fields: [articleId], references: [id])
+  product Product? @relation("ProductComments", fields: [productId], references: [id], onDelete: SetNull)
+  article Article? @relation("ArticleComments", fields: [articleId], references: [id], onDelete: SetNull)
 }
 
 enum category {
