@@ -1,0 +1,22 @@
+### 회원가입
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "seung@naver.com",
+  "nickname": "SeungHee kim",
+  "password": "password"
+}
+
+### 토큰 로그인
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "seung@naver.com",
+  "password": "password"
+}
+
+### 엑세서 토큰, 리프레쉬 토큰 재발급
+POST http://localhost:3000/token/refresh
+Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MjgwNTI1NCwiZXhwIjoxNzQ0MDE0ODU0fQ.OIOPH1YyQxko6AXBC4O441oLob7-tSdW1-_LeD3QErI

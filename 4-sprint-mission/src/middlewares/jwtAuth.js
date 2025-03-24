@@ -1,15 +1,15 @@
-import { expressjwt } from "exporess-jwt";
+import { expressjwt } from "express-jwt";
 
 const verifyAccessToken = expressjwt({
   secret: process.env.JWT_SECRET,
-  algorithems: ["HS256"],
+  algorithms: ["HS256"],
   requestProperty: "user",
 });
 
 const verifyRefreshToken = expressjwt({
   secret: process.env.JWT_SECRET,
-  algorithems: ["HS256"],
-  getToken: (req) => req.cokies.refreshToken,
+  algorithms: ["HS256"],
+  getToken: (req) => req.cookies.refreshToken,
 });
 
 export default {
