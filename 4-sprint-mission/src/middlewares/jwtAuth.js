@@ -12,7 +12,4 @@ const verifyRefreshToken = expressjwt({
   getToken: (req) => req.cookies.refreshToken,
 });
 
-export default {
-  verifyAccessToken,
-  verifyRefreshToken,
-};
+export { verifyAccessToken, verifyRefreshToken };
