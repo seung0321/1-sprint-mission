@@ -1,0 +1,26 @@
+### 상품 등록
+POST http://localhost:3000/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg2NDU3MCwiZXhwIjoxNzQyODY4MTcwfQ.UM--EZtMV3eyOYeyXGFYtRq6WsYo0C5iOzR9CUM43m0
+
+{
+  "name": "Mac 1",
+  "price": 1000000
+}
+
+### 상품 조회
+GET http://localhost:3000/products/3
+
+### 상품 수정
+PUT http://localhost:3000/products/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg2MjA1NywiZXhwIjoxNzQyODY1NjU3fQ.rXpJ2Du_DKMizqxVcPO1CO8BaKV3PiBGL414py-xNMo
+
+{
+  "name": "Mac 2",
+  "price": 1000000
+}
+
+### 상품 삭제
+DELETE http://localhost:3000/products/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MjgwODAwOCwiZXhwIjoxNzQyODExNjA4fQ.Sys2FuAxRESNIpx1AvpkGtXG9eD70pu3yrTqs1hPkbg
