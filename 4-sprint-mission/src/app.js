@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import userController from "./controllers/userController.js";
 import productController from "./controllers/productController.js";
 import boardController from "./controllers/boardController.js";
+import reviewController from "./controllers/reviewController.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cookieParser());
 app.use("", userController);
 app.use("/products", productController);
 app.use("/board", boardController);
+app.use("/review", reviewController);
 
 app.use(errorHandler);
 
