@@ -1,5 +1,6 @@
 import prisma from "../config/prisma.js";
 
+// ID로 특정 게시판을 조회하는 함수
 async function getById(id) {
   return await prisma.board.findUnique({
     where: {
@@ -8,6 +9,7 @@ async function getById(id) {
   });
 }
 
+// 새로운 게시판을 저장하는 함수
 async function save(board) {
   return await prisma.board.create({
     data: {
@@ -17,6 +19,7 @@ async function save(board) {
   });
 }
 
+// 특정 게시판을 업데이트하는 함수
 async function update(id, boardData) {
   return await prisma.board.update({
     where: {
@@ -26,6 +29,7 @@ async function update(id, boardData) {
   });
 }
 
+// ID로 특정 게시판을 삭제하는 함수
 async function deleteBoard(id) {
   return await prisma.board.delete({
     where: {

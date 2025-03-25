@@ -4,6 +4,7 @@ import { verifyAccessToken } from "../middlewares/jwtAuth.js";
 
 const boardController = express.Router();
 
+//게시판 생성
 boardController.post("/", verifyAccessToken, async (req, res, next) => {
   try {
     const createdBoard = await boardService.create(req.body);
@@ -13,12 +14,14 @@ boardController.post("/", verifyAccessToken, async (req, res, next) => {
   }
 });
 
+//게시판 ID 조회
 boardController.get("/:id", async (req, res) => {
   const { id } = req.params;
   const board = await boardService.getById(id);
   return res.json(board);
 });
 
+//게시판 수정
 boardController.put("/:id", verifyAccessToken, async (req, res, next) => {
   const { id } = req.params;
   const updatedBoardData = req.body;
@@ -31,6 +34,7 @@ boardController.put("/:id", verifyAccessToken, async (req, res, next) => {
   }
 });
 
+//게시판 삭제
 boardController.delete("/:id", verifyAccessToken, async (req, res, next) => {
   const { id } = req.params;
 

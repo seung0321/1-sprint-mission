@@ -1,5 +1,6 @@
 import prisma from "../config/prisma.js";
 
+// ID로 특정 사용자를 조회하는 함수
 async function findById(id) {
   return prisma.user.findUnique({
     where: {
@@ -8,6 +9,7 @@ async function findById(id) {
   });
 }
 
+// 이메일로 특정 사용자를 조회하는 함수
 async function findByEmail(email) {
   return await prisma.user.findUnique({
     where: {
@@ -16,6 +18,7 @@ async function findByEmail(email) {
   });
 }
 
+// 새로운 사용자를 저장하는 함수
 async function save(user) {
   return prisma.user.create({
     data: {
@@ -26,6 +29,7 @@ async function save(user) {
   });
 }
 
+// 특정 사용자의 정보를 업데이트하는 함수
 async function update(id, data) {
   return prisma.user.update({
     where: {

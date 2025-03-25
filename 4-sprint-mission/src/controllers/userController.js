@@ -7,6 +7,7 @@ import {
 
 const userController = express.Router();
 
+//유저 회원가입
 userController.post("/users", async (req, res, next) => {
   try {
     const user = await userService.createUser(req.body);
@@ -16,6 +17,7 @@ userController.post("/users", async (req, res, next) => {
   }
 });
 
+//유저 토큰 로그인
 userController.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -37,6 +39,7 @@ userController.post("/login", async (req, res, next) => {
   }
 });
 
+//액세스, 리프레시 토큰 재발급
 userController.post(
   "/token/refresh",
   verifyRefreshToken,
@@ -65,5 +68,25 @@ userController.post(
     }
   }
 );
+
+// 유저 정보 조회
+userController.get("/userID", verifyAccessToken, async (req, res, next) => {
+  try {
+    const user = await userService.getUserById(req.user.userId);
+    return res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 유저 정보 및 비밀번호 수정
+userController.put("/userUpdate", verifyAccessToken, async (req, res, next) => {
+  try {
+    const updatedUser = await userService.updateUser(req.user.userId, req.body);
+    return res.json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default userController;

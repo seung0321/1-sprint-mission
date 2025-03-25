@@ -4,6 +4,7 @@ import { verifyAccessToken, verifyReviewAuth } from "../middlewares/jwtAuth.js";
 
 const reviewController = express.Router();
 
+//리뷰 생성
 reviewController.post("/", verifyAccessToken, async (req, res, next) => {
   const { userId } = req.user;
   try {
@@ -17,6 +18,7 @@ reviewController.post("/", verifyAccessToken, async (req, res, next) => {
   }
 });
 
+//ID 리뷰 조회
 reviewController.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -27,6 +29,7 @@ reviewController.get("/:id", async (req, res, next) => {
   }
 });
 
+//모든 리뷰 조회
 reviewController.get("/", async (req, res, next) => {
   try {
     const reviews = await reviewService.getAll();
@@ -36,6 +39,7 @@ reviewController.get("/", async (req, res, next) => {
   }
 });
 
+//리뷰 수정
 reviewController.put(
   "/:id",
   verifyAccessToken,
@@ -50,6 +54,7 @@ reviewController.put(
   }
 );
 
+//리뷰 삭제
 reviewController.delete(
   "/:id",
   verifyAccessToken,

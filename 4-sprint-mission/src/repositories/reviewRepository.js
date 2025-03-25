@@ -1,5 +1,6 @@
 import prisma from "../config/prisma.js";
 
+// 리뷰를 저장하는 함수
 async function save(review) {
   const createdReview = await prisma.review.create({
     data: {
@@ -21,6 +22,7 @@ async function save(review) {
   return createdReview;
 }
 
+// ID로 특정 리뷰를 조회하는 함수
 async function getById(id) {
   const review = await prisma.review.findUnique({
     where: {
@@ -30,11 +32,13 @@ async function getById(id) {
   return review;
 }
 
+// 모든 리뷰를 조회하는 함수
 async function getAll() {
   const reviews = await prisma.review.findMany();
   return reviews;
 }
 
+// 특정 리뷰를 업데이트하는 함수
 async function update(id, review) {
   const updatedReview = await prisma.review.update({
     where: {
@@ -49,6 +53,7 @@ async function update(id, review) {
   return updatedReview;
 }
 
+// ID로 특정 리뷰를 삭제하는 함수
 async function deleteById(id) {
   const deletedReview = await prisma.review.delete({
     where: {

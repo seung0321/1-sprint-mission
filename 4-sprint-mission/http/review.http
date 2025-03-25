@@ -17,9 +17,9 @@ GET http://localhost:3000/review
 GET http://localhost:3000/review/1
 
 ### 댓글 수정
-PUT http://localhost:3000/review/3
+PUT http://localhost:3000/review/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg2ODg3NiwiZXhwIjoxNzQyODcyNDc2fQ.rvmudexvkFXCSTQrA1YU_6vYqO24n9CYr6bst-4ndH0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg3Nzc4NSwiZXhwIjoxNzQyODgxMzg1fQ.DEPpQKAPSq56Nr6fgylACOpFhPuvnqmuXYhDFLaSGc4
 
 {
   "title": "good",
@@ -28,6 +28,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 }
 
 ### 댓글 삭제
-DELETE http://localhost:3000/review/2
+DELETE http://localhost:3000/review/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg2ODI0NCwiZXhwIjoxNzQyODcxODQ0fQ.3LKIU704Z8TuVIuoM2OYzfqecW45LBDXLOEFg5_qjuM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg3Nzc4NSwiZXhwIjoxNzQyODgxMzg1fQ.DEPpQKAPSq56Nr6fgylACOpFhPuvnqmuXYhDFLaSGc4

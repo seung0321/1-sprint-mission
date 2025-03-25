@@ -1,7 +1,7 @@
 ### 게시글 등록
 POST http://localhost:3000/board
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg2NTE1NiwiZXhwIjoxNzQyODY4NzU2fQ.XTfxqg0t05GbxX-sv1WtLRtUAFmQkOeKs5IhTSF41TQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg3Nzc4NSwiZXhwIjoxNzQyODgxMzg1fQ.DEPpQKAPSq56Nr6fgylACOpFhPuvnqmuXYhDFLaSGc4
 
 {
   "title": "게시글 제목 입니다.",

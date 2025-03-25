@@ -20,3 +20,18 @@ Content-Type: application/json
 ### 엑세서 토큰, 리프레쉬 토큰 재발급
 POST http://localhost:3000/token/refresh
 Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MjgwNTI1NCwiZXhwIjoxNzQ0MDE0ODU0fQ.OIOPH1YyQxko6AXBC4O441oLob7-tSdW1-_LeD3QErI
+
+### 유저 정보 조회
+GET http://localhost:3000/userID
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0Mjg5MjI4MiwiZXhwIjoxNzQyODk1ODgyfQ.VlYhaMTWxKcsl3SK6lLAcPO7AHHs-dyzfac5PxvBuao
+
+### 유저 정보 및 비밀번호 수정
+PUT http://localhost:3000/userUpdate
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0Mjg5MTk2NSwiZXhwIjoxNzQyODk1NTY1fQ.HkJE8dceIO7MFIMsZUKm_Nibklhksis7JCa-497w5PM
+
+{
+  "email": "seung12@naver.com",
+  "nickname": "Seung kim",
+  "password": "password1"
+}
