@@ -11,7 +11,7 @@ async function findByUserId(userId) {
 async function getById(id, userId) {
   return await prisma.product.findFirst({
     where: {
-      id: parseInt(id, 10),
+      id: parseInt(id, 10), // id는 Int로 유지
       userId: parseInt(userId, 10),
     },
   });
@@ -22,7 +22,9 @@ async function save(product) {
   return await prisma.product.create({
     data: {
       name: product.name,
-      price: parseInt(product.price, 10),
+      description: product.description, // description 추가
+      price: parseFloat(product.price),
+      tag: product.tag, // tag는 category enum 사용
       userId: parseInt(product.userId, 10),
     },
   });
@@ -31,7 +33,7 @@ async function save(product) {
 // 상품 수정
 async function update(id, productData) {
   return await prisma.product.update({
-    where: { id: parseInt(id, 10) },
+    where: { id: parseInt(id, 10) }, // id는 Int로 유지
     data: productData,
   });
 }
@@ -39,7 +41,7 @@ async function update(id, productData) {
 // 상품 삭제
 async function deleteProduct(id) {
   return await prisma.product.delete({
-    where: { id: parseInt(id, 10) },
+    where: { id: parseInt(id, 10) }, // id는 Int로 유지
   });
 }
 

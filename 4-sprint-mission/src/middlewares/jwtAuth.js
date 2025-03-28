@@ -1,5 +1,5 @@
 import { expressjwt } from "express-jwt";
-import reviewRepository from "../repositories/reviewRepository.js";
+import commentRepository from "../repositories/commentRepository.js";
 
 const verifyAccessToken = expressjwt({
   secret: process.env.JWT_SECRET,
@@ -13,19 +13,19 @@ const verifyRefreshToken = expressjwt({
   getToken: (req) => req.cookies.refreshToken,
 });
 
-async function verifyReviewAuth(req, res, next) {
-  const { id: reviewId } = req.params;
+async function verifyCommentAuth(req, res, next) {
+  const { id: commentId } = req.params;
   const { userId } = req.user;
 
   try {
-    const review = await reviewRepository.getById(reviewId);
-    if (!review) {
-      const error = new Error("Review not found");
+    const comment = await commentRepository.getById(commentId);
+    if (!comment) {
+      const error = new Error("Comment not found");
       error.code = 404;
       throw error;
     }
 
-    if (review.authorId !== userId) {
+    if (comment.authorId !== userId) {
       const error = new Error("Forbidden");
       error.code = 403;
       throw error;
@@ -37,4 +37,4 @@ async function verifyReviewAuth(req, res, next) {
   }
 }
 
-export { verifyAccessToken, verifyRefreshToken, verifyReviewAuth };
+export { verifyAccessToken, verifyRefreshToken, verifyCommentAuth };

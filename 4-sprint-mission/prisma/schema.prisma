@@ -22,30 +22,32 @@ model User {
   refreshToken String?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  Review       Review[]
+  Comment      Comment[]
   Product      Product[]
 }
 
 model Product {
-  id        Int      @id @default(autoincrement())
-  name      String
-  price     Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  tag         category
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
 }
 
 model Board {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   title       String
   description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Review      Review[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Comment     Comment[]
 }
 
-model Review {
+model Comment {
   id          Int      @id @default(autoincrement())
   title       String
   description String
@@ -56,4 +58,14 @@ model Review {
   boardId     Int
   author      User     @relation(fields: [authorId], references: [id])
   authorId    Int
+}
+
+enum category {
+  FASHION
+  BEAUTY
+  SPORTS
+  ELECTRONICS
+  HOME_INTERIOR
+  HOUSEHOLD_SUPPLIES
+  KITCHENWARE
 }

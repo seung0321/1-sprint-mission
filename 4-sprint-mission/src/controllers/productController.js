@@ -1,12 +1,17 @@
 import express from "express";
 import productService from "../service/productService.js";
 import { verifyAccessToken } from "../middlewares/jwtAuth.js";
+import { CreateProduct } from "../structs/productStruct.js";
+import { assert } from "superstruct";
 
 const productController = express.Router();
 
 // 상품 생성
 productController.post("/", verifyAccessToken, async (req, res, next) => {
   try {
+    // 유효성 검사
+    assert(req.body, CreateProduct);
+
     const userId = req.user.userId;
     const productData = { ...req.body, userId };
     const createdProduct = await productService.create(productData);
@@ -33,6 +38,9 @@ productController.put("/:id", verifyAccessToken, async (req, res, next) => {
   const updatedProductData = req.body;
 
   try {
+    // 유효성 검사
+    assert(updatedProductData, CreateProduct);
+
     const userId = req.user.userId;
     const updatedProduct = await productService.update(
       id,

@@ -1,25 +1,29 @@
 ### 상품 등록
 POST http://localhost:3000/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0Mjg5OTQyOSwiZXhwIjoxNzQyOTAzMDI5fQ.6Wl2khZrOsfWAZWiwMwZBtiIN4gDxN0TXkWS2wQECf0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
 
 {
-  "name": "Mac 2",
-  "price": 1000000
+  "name": "고급 도마",
+    "description": "무게감 있고 이름있는 고급 도마입니다.",
+    "price": 50000,
+    "tag": "KITCHENWARE"
 }
 
 ### 상품 조회
 GET http://localhost:3000/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0Mjg5OTQyOSwiZXhwIjoxNzQyOTAzMDI5fQ.6Wl2khZrOsfWAZWiwMwZBtiIN4gDxN0TXkWS2wQECf0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
 
 ### 상품 수정
-PUT http://localhost:3000/products/9
+PUT http://localhost:3000/products/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0Mjg5OTQyOSwiZXhwIjoxNzQyOTAzMDI5fQ.6Wl2khZrOsfWAZWiwMwZBtiIN4gDxN0TXkWS2wQECf0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
 
 {
-  "name": "Mac 5",
-  "price": 1000000
+  "name": "고급 도마",
+    "description": "무게감 있고 이름있는 고급 도마입니다.",
+    "price": 500000,
+    "tag": "KITCHENWARE"
 }
 
 ### 상품 삭제

@@ -1,7 +1,7 @@
 ### 댓글 생성
-POST http://localhost:3000/review
+POST http://localhost:3000/comment
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg3Nzc4NSwiZXhwIjoxNzQyODgxMzg1fQ.DEPpQKAPSq56Nr6fgylACOpFhPuvnqmuXYhDFLaSGc4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
 
 {
   "title": "댓글 제목입니다",
@@ -11,15 +11,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 }
 
 ### 댓글 리스트
-GET http://localhost:3000/review
+GET http://localhost:3000/comment
 
 ### 댓글 
-GET http://localhost:3000/review/1
+GET http://localhost:3000/comment/1
 
 ### 댓글 수정
-PUT http://localhost:3000/review/1
+PUT http://localhost:3000/comment/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg3Nzc4NSwiZXhwIjoxNzQyODgxMzg1fQ.DEPpQKAPSq56Nr6fgylACOpFhPuvnqmuXYhDFLaSGc4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
 
 {
   "title": "good",
@@ -28,6 +28,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 }
 
 ### 댓글 삭제
-DELETE http://localhost:3000/review/1
+DELETE http://localhost:3000/comment/1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0Mjg3Nzc4NSwiZXhwIjoxNzQyODgxMzg1fQ.DEPpQKAPSq56Nr6fgylACOpFhPuvnqmuXYhDFLaSGc4

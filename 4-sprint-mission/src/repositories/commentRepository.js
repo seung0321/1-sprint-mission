@@ -1,66 +1,66 @@
 import prisma from "../config/prisma.js";
 
 // 리뷰를 저장하는 함수
-async function save(review) {
-  const createdReview = await prisma.review.create({
+async function save(comment) {
+  const createdComment = await prisma.comment.create({
     data: {
-      title: review.title,
-      description: review.description,
-      rating: review.rating,
+      title: comment.title,
+      description: comment.description,
+      rating: comment.rating,
       board: {
         connect: {
-          id: review.boardId,
+          id: comment.boardId,
         },
       },
       author: {
         connect: {
-          id: review.authorId,
+          id: comment.authorId,
         },
       },
     },
   });
-  return createdReview;
+  return createdComment;
 }
 
 // ID로 특정 리뷰를 조회하는 함수
 async function getById(id) {
-  const review = await prisma.review.findUnique({
+  const comment = await prisma.comment.findUnique({
     where: {
       id: parseInt(id, 10),
     },
   });
-  return review;
+  return comment;
 }
 
 // 모든 리뷰를 조회하는 함수
 async function getAll() {
-  const reviews = await prisma.review.findMany();
-  return reviews;
+  const comments = await prisma.comment.findMany();
+  return comments;
 }
 
 // 특정 리뷰를 업데이트하는 함수
-async function update(id, review) {
-  const updatedReview = await prisma.review.update({
+async function update(id, comment) {
+  const updatedComment = await prisma.comment.update({
     where: {
       id: parseInt(id, 10),
     },
     data: {
-      title: review.title,
-      description: review.description,
-      rating: review.rating,
+      title: comment.title,
+      description: comment.description,
+      rating: comment.rating,
     },
   });
-  return updatedReview;
+  return updatedComment;
 }
 
 // ID로 특정 리뷰를 삭제하는 함수
 async function deleteById(id) {
-  const deletedReview = await prisma.review.delete({
+  const deletedComment = await prisma.comment.delete({
     where: {
       id: parseInt(id, 10),
     },
   });
-  return deletedReview;
+  return deletedComment;
 }
 
 export default {
