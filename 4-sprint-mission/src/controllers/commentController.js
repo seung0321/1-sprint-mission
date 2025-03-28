@@ -7,13 +7,16 @@ import {
 
 const commentController = express.Router();
 
-//리뷰 생성
+//댓글 생성
 commentController.post("/", verifyAccessToken, async (req, res, next) => {
   const { userId } = req.user;
+  const { type, id } = req.body;
+
   try {
     const createdComment = await commentService.create({
       ...req.body,
       authorId: userId,
+      [type + "Id"]: id,
     });
     return res.status(201).json(createdComment);
   } catch (error) {
@@ -21,7 +24,7 @@ commentController.post("/", verifyAccessToken, async (req, res, next) => {
   }
 });
 
-//ID 리뷰 조회
+//ID 댓글 조회
 commentController.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -32,7 +35,7 @@ commentController.get("/:id", async (req, res, next) => {
   }
 });
 
-//모든 리뷰 조회
+//모든 댓글 조회
 commentController.get("/", async (req, res, next) => {
   try {
     const comments = await commentService.getAll();
@@ -42,7 +45,7 @@ commentController.get("/", async (req, res, next) => {
   }
 });
 
-//리뷰 수정
+//댓글 수정
 commentController.put(
   "/:id",
   verifyAccessToken,
@@ -60,7 +63,7 @@ commentController.put(
   }
 );
 
-//리뷰 삭제
+//댓글 삭제
 commentController.delete(
   "/:id",
   verifyAccessToken,

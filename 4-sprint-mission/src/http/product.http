@@ -1,7 +1,7 @@
 ### 상품 등록
 POST http://localhost:3000/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE2NzE0NCwiZXhwIjoxNzQzMTcwNzQ0fQ.9d635aFnOREDO7BZhJpWtKM4GoZ5y7YsFYMeH27dLIM
 
 {
   "name": "고급 도마",

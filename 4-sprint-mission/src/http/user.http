@@ -1,0 +1,50 @@
+### 회원가입 요청 (이미지 포함)
+POST http://localhost:3000/users
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="email"
+
+seung123@naver.com
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="nickname"
+
+SeungHee kim
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="password"
+
+password123
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="sprint2.png"
+Content-Type: image/png
+
+< @C:/Users/hp/OneDrive/Desktop/sprint2.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### 토큰 로그인
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "seung123@naver.com",
+  "password": "password1"
+}
+
+### 엑세서 토큰, 리프레쉬 토큰 재발급
+POST http://localhost:3000/token/refresh
+Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MjgwNTI1NCwiZXhwIjoxNzQ0MDE0ODU0fQ.OIOPH1YyQxko6AXBC4O441oLob7-tSdW1-_LeD3QErI
+
+### 유저 정보 조회
+GET http://localhost:3000/userID
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0MzE2OTczNywiZXhwIjoxNzQzMTczMzM3fQ.oEcUp0szc-jq3iFRy7yFFRxLAh2ioRSq3kEqplmHdCI
+
+### 유저 정보 및 비밀번호 수정
+PUT http://localhost:3000/userUpdate
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0MzE2OTczNywiZXhwIjoxNzQzMTczMzM3fQ.oEcUp0szc-jq3iFRy7yFFRxLAh2ioRSq3kEqplmHdCI
+
+{
+  "email": "seung123@naver.com",
+  "nickname": "Seung kim",
+  "password": "password1"
+}

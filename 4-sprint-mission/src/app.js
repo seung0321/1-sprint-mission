@@ -3,6 +3,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import userController from "./controllers/userController.js";
 import productController from "./controllers/productController.js";
+import articleController from "./controllers/articleController.js";
 import boardController from "./controllers/boardController.js";
 import commentController from "./controllers/commentController.js";
 import errorHandler from "./middlewares/errorHandler.js";
@@ -16,6 +17,7 @@ app.use("", userController);
 app.use("/products", productController);
 app.use("/board", boardController);
 app.use("/comment", commentController);
+app.use("/article", articleController);
 
 app.use(errorHandler);
 

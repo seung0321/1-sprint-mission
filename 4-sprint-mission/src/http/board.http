@@ -1,7 +1,7 @@
 ### 게시글 등록
 POST http://localhost:3000/board
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE2NzE0NCwiZXhwIjoxNzQzMTcwNzQ0fQ.9d635aFnOREDO7BZhJpWtKM4GoZ5y7YsFYMeH27dLIM
 
 {
   "title": "게시글 제목 입니다.",
@@ -9,7 +9,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 }
 
 ### 게시글 조회
-GET http://localhost:3000/board/4
+GET http://localhost:3000/board/1
 
 ### 게시글 수정
 PUT http://localhost:3000/board/3

@@ -25,6 +25,7 @@ async function save(user) {
       email: user.email,
       nickname: user.nickname,
       password: user.password,
+      image: user.image, // 이미지 경로 포함
     },
   });
 }

@@ -1,0 +1,31 @@
+### 아티클 생성
+POST http://localhost:3000/article
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE2NzE0NCwiZXhwIjoxNzQzMTcwNzQ0fQ.9d635aFnOREDO7BZhJpWtKM4GoZ5y7YsFYMeH27dLIM
+
+{
+  "title": "새로운 아티클 제목",
+  "content": "아티클 내용입니다."
+}
+
+
+### 아티클 조회 
+GET http://localhost:3000/article/1 
+
+
+
+### 아티클 수정
+PUT http://localhost:3000/article/1 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1NjczOSwiZXhwIjoxNzQzMTYwMzM5fQ.FXg8mY_CH9m1PO-O9yRQWIEKqotGxu33W9moDhmbLPo
+
+{
+  "title": "수정된 아티클 제목",
+  "content": "수정된 아티클 내용입니다."
+}
+
+
+
+### 아티클 삭제
+DELETE http://localhost:3000/article/1 
+Authorization: Bearer 

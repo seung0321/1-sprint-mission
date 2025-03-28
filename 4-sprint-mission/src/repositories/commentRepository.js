@@ -1,28 +1,36 @@
 import prisma from "../config/prisma.js";
 
-// 리뷰를 저장하는 함수
+// 댓글 생성
 async function save(comment) {
+  const {
+    title,
+    description,
+    rating,
+    boardId,
+    productId,
+    articleId,
+    authorId,
+  } = comment;
+
   const createdComment = await prisma.comment.create({
     data: {
-      title: comment.title,
-      description: comment.description,
-      rating: comment.rating,
-      board: {
-        connect: {
-          id: comment.boardId,
-        },
-      },
+      title,
+      description,
+      rating,
       author: {
-        connect: {
-          id: comment.authorId,
-        },
+        connect: { id: authorId },
       },
+      // 댓글이 작성된 항목에 맞는 관계 설정
+      ...(boardId && { board: { connect: { id: boardId } } }),
+      ...(productId && { product: { connect: { id: productId } } }),
+      ...(articleId && { article: { connect: { id: articleId } } }),
     },
   });
+
   return createdComment;
 }
 
-// ID로 특정 리뷰를 조회하는 함수
+// ID로 댓글 조회
 async function getById(id) {
   const comment = await prisma.comment.findUnique({
     where: {
@@ -32,13 +40,16 @@ async function getById(id) {
   return comment;
 }
 
-// 모든 리뷰를 조회하는 함수
+// 모든 댓글 조회
 async function getAll() {
-  const comments = await prisma.comment.findMany();
-  return comments;
+  return await prisma.comment.findMany({
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
 }
 
-// 특정 리뷰를 업데이트하는 함수
+// 특정 댓글 수정
 async function update(id, comment) {
   const updatedComment = await prisma.comment.update({
     where: {
@@ -53,7 +64,7 @@ async function update(id, comment) {
   return updatedComment;
 }
 
-// ID로 특정 리뷰를 삭제하는 함수
+// ID로 특정 댓글 삭제
 async function deleteById(id) {
   const deletedComment = await prisma.comment.delete({
     where: {

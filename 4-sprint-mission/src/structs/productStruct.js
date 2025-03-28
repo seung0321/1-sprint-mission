@@ -1,6 +1,5 @@
 import * as s from "superstruct";
 
-// category enum을 정의합니다.
 const tag = [
   "FASHION",
   "BEAUTY",
