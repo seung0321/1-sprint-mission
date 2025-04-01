@@ -1,7 +1,7 @@
 ### 상품 등록
 POST http://localhost:3000/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE2NzE0NCwiZXhwIjoxNzQzMTcwNzQ0fQ.9d635aFnOREDO7BZhJpWtKM4GoZ5y7YsFYMeH27dLIM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzQ2NjYxMCwiZXhwIjoxNzQzNDcwMjEwfQ.3zMACVc6deoLP7BV_NAChDPOaUfee_PpKouUuwkstc8
 
 {
   "name": "고급 도마",
@@ -12,12 +12,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 
 ### 상품 조회
 GET http://localhost:3000/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzQ2NjYxMCwiZXhwIjoxNzQzNDcwMjEwfQ.3zMACVc6deoLP7BV_NAChDPOaUfee_PpKouUuwkstc8
 
 ### 상품 수정
-PUT http://localhost:3000/products/1
+PUT http://localhost:3000/products/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzE1MzI1MywiZXhwIjoxNzQzMTU2ODUzfQ.J5XNgq8Pa1h2a28l9ljiviS5f6HSIKh_6AEVv58GD78
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzQ2NjYxMCwiZXhwIjoxNzQzNDcwMjEwfQ.3zMACVc6deoLP7BV_NAChDPOaUfee_PpKouUuwkstc8
 
 {
   "name": "고급 도마",
@@ -27,5 +27,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 }
 
 ### 상품 삭제
-DELETE http://localhost:3000/products/8
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0Mjg5OTQyOSwiZXhwIjoxNzQyOTAzMDI5fQ.6Wl2khZrOsfWAZWiwMwZBtiIN4gDxN0TXkWS2wQECf0
+DELETE http://localhost:3000/products/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MzQ2NjYxMCwiZXhwIjoxNzQzNDcwMjEwfQ.3zMACVc6deoLP7BV_NAChDPOaUfee_PpKouUuwkstc8

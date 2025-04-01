@@ -7,18 +7,20 @@ const articleController = express.Router();
 // 아티클 생성
 articleController.post("/", verifyAccessToken, async (req, res, next) => {
   try {
-    const createdArticle = await articleService.create(req.body);
+    const userId = req.user.userId;
+    const articleData = { ...req.body, userId };
+    const createdArticle = await articleService.create(articleData);
     return res.json(createdArticle);
   } catch (error) {
     next(error);
   }
 });
 
-// 아티클 ID 조회
-articleController.get("/:id", async (req, res, next) => {
-  const { id } = req.params;
+// 아티클 조회
+articleController.get("/", verifyAccessToken, async (req, res, next) => {
   try {
-    const article = await articleService.getById(id);
+    const userId = req.user.userId;
+    const article = await articleService.getById(userId);
     return res.json(article);
   } catch (error) {
     next(error);
@@ -31,7 +33,12 @@ articleController.put("/:id", verifyAccessToken, async (req, res, next) => {
   const updatedArticleData = req.body;
 
   try {
-    const updatedArticle = await articleService.update(id, updatedArticleData);
+    const userId = req.user.userId;
+    const updatedArticle = await articleService.update(
+      id,
+      updatedArticleData,
+      userId
+    );
     return res.json(updatedArticle);
   } catch (error) {
     next(error);
@@ -43,7 +50,8 @@ articleController.delete("/:id", verifyAccessToken, async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    await articleService.delete(id);
+    const userId = req.user.userId;
+    await articleService.delete(id, userId);
     return res.status(204).send();
   } catch (error) {
     next(error);

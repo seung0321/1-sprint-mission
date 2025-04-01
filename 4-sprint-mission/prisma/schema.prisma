@@ -24,6 +24,7 @@ model User {
   updatedAt    DateTime  @updatedAt
   Comment      Comment[]
   Product      Product[]
+  Article      Article[]
 }
 
 model Product {
@@ -45,6 +46,8 @@ model Article {
   content   String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
   Comment   Comment[]
 }
 

@@ -15,6 +15,7 @@ async function findByEmail(email) {
     where: {
       email,
     },
+    orderBy: { createdAt: "asc" },
   });
 }
 

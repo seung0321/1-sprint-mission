@@ -1,11 +1,12 @@
 import prisma from "../config/prisma.js";
 
 // ID로 특정 아티클을 조회하는 함수
-async function getById(id) {
-  return await prisma.article.findUnique({
+async function getById(userId) {
+  return await prisma.article.findMany({
     where: {
-      id: parseInt(id, 10),
+      userId: parseInt(userId, 10),
     },
+    orderBy: { createdAt: "asc" },
   });
 }
 
@@ -15,6 +16,7 @@ async function save(article) {
     data: {
       title: article.title,
       content: article.content,
+      userId: parseInt(article.userId, 10),
     },
   });
 }

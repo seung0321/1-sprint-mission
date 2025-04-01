@@ -6,6 +6,7 @@ async function getById(id) {
     where: {
       id: parseInt(id, 10),
     },
+    orderBy: { createdAt: "asc" },
   });
 }
 

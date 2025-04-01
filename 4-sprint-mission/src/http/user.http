@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
   "email": "seung123@naver.com",
-  "password": "password1"
+  "password": "password123"
 }
 
 ### 엑세서 토큰, 리프레쉬 토큰 재발급
