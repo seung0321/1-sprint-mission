@@ -1,18 +1,19 @@
 import { create } from 'superstruct';
-import { prismaClient } from '../lib/prismaClient.js';
-import NotFoundError from '../lib/errors/NotFoundError.js';
-import { IdParamsStruct } from '../structs/commonStructs.js';
+import { prismaClient } from '../lib/prismaClient';
+import NotFoundError from '../lib/errors/NotFoundError';
+import { IdParamsStruct } from '../structs/commonStructs';
 import {
   CreateProductBodyStruct,
   GetProductListParamsStruct,
   UpdateProductBodyStruct,
-} from '../structs/productsStruct.js';
-import { CreateCommentBodyStruct, GetCommentListParamsStruct } from '../structs/commentsStruct.js';
-import UnauthorizedError from '../lib/errors/UnauthorizedError.js';
-import ForbiddenError from '../lib/errors/ForbiddenError.js';
-import BadRequestError from '../lib/errors/BadRequestError.js';
+} from '../structs/productsStruct';
+import { CreateCommentBodyStruct, GetCommentListParamsStruct } from '../structs/commentsStruct';
+import UnauthorizedError from '../lib/errors/UnauthorizedError';
+import ForbiddenError from '../lib/errors/ForbiddenError';
+import BadRequestError from '../lib/errors/BadRequestError';
+import { Request, Response } from 'express';
 
-export async function createProduct(req, res) {
+export async function createProduct(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -29,7 +30,7 @@ export async function createProduct(req, res) {
   res.status(201).send(createdProduct);
 }
 
-export async function getProduct(req, res) {
+export async function getProduct(req: Request, res: Response) {
   const { id } = create(req.params, IdParamsStruct);
 
   const product = await prismaClient.product.findUnique({
@@ -45,14 +46,14 @@ export async function getProduct(req, res) {
     favorites: undefined,
     favoriteCount: product.favorites.length,
     isFavorited: req.user
-      ? product.favorites.some((favorite) => favorite.userId === req.user.id)
+      ? product.favorites.some((favorite) => favorite.userId === req.user?.id)
       : undefined,
   };
 
   return res.send(productWithFavorites);
 }
 
-export async function updateProduct(req, res) {
+export async function updateProduct(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -77,7 +78,7 @@ export async function updateProduct(req, res) {
   return res.send(updatedProduct);
 }
 
-export async function deleteProduct(req, res) {
+export async function deleteProduct(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -97,7 +98,7 @@ export async function deleteProduct(req, res) {
   return res.status(204).send();
 }
 
-export async function getProductList(req, res) {
+export async function getProductList(req: Request, res: Response) {
   const { page, pageSize, orderBy, keyword } = create(req.query, GetProductListParamsStruct);
 
   const where = keyword
@@ -122,7 +123,7 @@ export async function getProductList(req, res) {
     favorites: undefined,
     favoriteCount: product.favorites.length,
     isFavorited: req.user
-      ? product.favorites.some((favorite) => favorite.userId === req.user.id)
+      ? product.favorites.some((favorite) => favorite.userId === req.user?.id)
       : undefined,
   }));
 
@@ -132,7 +133,7 @@ export async function getProductList(req, res) {
   });
 }
 
-export async function createComment(req, res) {
+export async function createComment(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -152,7 +153,7 @@ export async function createComment(req, res) {
   return res.status(201).send(createdComment);
 }
 
-export async function getCommentList(req, res) {
+export async function getCommentList(req: Request, res: Response) {
   const { id: productId } = create(req.params, IdParamsStruct);
   const { cursor, limit } = create(req.query, GetCommentListParamsStruct);
 
@@ -176,7 +177,7 @@ export async function getCommentList(req, res) {
   });
 }
 
-export async function createFavorite(req, res) {
+export async function createFavorite(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -199,7 +200,7 @@ export async function createFavorite(req, res) {
   return res.status(201).send();
 }
 
-export async function deleteFavorite(req, res) {
+export async function deleteFavorite(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }

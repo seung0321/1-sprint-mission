@@ -1,5 +1,5 @@
 import express from 'express';
-import { withAsync } from '../lib/withAsync.js';
+import { withAsync, withAsyncVoid } from '../lib/withAsync';
 import {
   createProduct,
   getProduct,
@@ -10,12 +10,12 @@ import {
   getCommentList,
   createFavorite,
   deleteFavorite,
-} from '../controllers/productsController.js';
-import authenticate from '../middlewares/authenticate.js';
+} from '../controllers/productsController';
+import authenticate from '../middlewares/authenticate';
 
 const productsRouter = express.Router();
 
-productsRouter.post('/', authenticate(), withAsync(createProduct));
+productsRouter.post('/', authenticate(), withAsyncVoid(createProduct));
 productsRouter.get('/:id', authenticate({ optional: true }), withAsync(getProduct));
 productsRouter.patch('/:id', authenticate(), withAsync(updateProduct));
 productsRouter.delete('/:id', authenticate(), withAsync(deleteProduct));

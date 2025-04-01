@@ -1,16 +1,17 @@
 import { create } from 'superstruct';
 import bcrypt from 'bcrypt';
-import { prismaClient } from '../lib/prismaClient.js';
+import { prismaClient } from '../lib/prismaClient';
 import {
   UpdateMeBodyStruct,
   UpdatePasswordBodyStruct,
   GetMyProductListParamsStruct,
   GetMyFavoriteListParamsStruct,
-} from '../structs/usersStructs.js';
-import NotFoundError from '../lib/errors/NotFoundError.js';
-import UnauthorizedError from '../lib/errors/UnauthorizedError.js';
+} from '../structs/usersStructs';
+import NotFoundError from '../lib/errors/NotFoundError';
+import UnauthorizedError from '../lib/errors/UnauthorizedError';
+import { Request, Response } from 'express';
 
-export async function getMe(req, res) {
+export async function getMe(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -24,7 +25,7 @@ export async function getMe(req, res) {
   return res.send(userWithoutPassword);
 }
 
-export async function updateMe(req, res) {
+export async function updateMe(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -40,7 +41,7 @@ export async function updateMe(req, res) {
   return res.status(200).send(userWithoutPassword);
 }
 
-export async function updateMyPassword(req, res) {
+export async function updateMyPassword(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -68,7 +69,7 @@ export async function updateMyPassword(req, res) {
   return res.status(200).send();
 }
 
-export async function getMyProductList(req, res) {
+export async function getMyProductList(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -103,7 +104,7 @@ export async function getMyProductList(req, res) {
     ...product,
     favorites: undefined,
     favoriteCount: product.favorites.length,
-    isFavorited: product.favorites.some((favorite) => favorite.userId === req.user.id),
+    isFavorited: product.favorites.some((favorite) => favorite.userId === req.user?.id),
   }));
 
   return res.send({
@@ -112,7 +113,7 @@ export async function getMyProductList(req, res) {
   });
 }
 
-export async function getMyFavoriteList(req, res) {
+export async function getMyFavoriteList(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
