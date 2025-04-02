@@ -1,53 +1,44 @@
+import express, { Request, Response } from 'express';
 import { create } from 'superstruct';
-import { prismaClient } from '../lib/prismaClient';
 import { UpdateCommentBodyStruct } from '../structs/commentsStruct';
-import NotFoundError from '../lib/errors/NotFoundError';
 import { IdParamsStruct } from '../structs/commonStructs';
+import { withAsync } from '../lib/withAsync';
+import authenticate from '../middlewares/authenticate';
+import { commentService } from '../services/commentService';
 import UnauthorizedError from '../lib/errors/UnauthorizedError';
-import ForbiddenError from '../lib/errors/ForbiddenError';
-import { Response, Request } from 'express';
+import BadRequestError from '../lib/errors/BadRequestError';
 
-export async function updateComment(req: Request, res: Response) {
+const commentsRouter = express.Router();
+
+async function updateComment(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
 
   const { id } = create(req.params, IdParamsStruct);
-  const { content } = create(req.body, UpdateCommentBodyStruct);
+  const body = create(req.body, UpdateCommentBodyStruct);
 
-  const existingComment = await prismaClient.comment.findUnique({ where: { id } });
-  if (!existingComment) {
-    throw new NotFoundError('comment', id);
+  if (!body.content || typeof body.content !== 'string') {
+    throw new BadRequestError('Content is required and must be a string');
   }
 
-  if (existingComment.userId !== req.user.id) {
-    throw new ForbiddenError('Should be the owner of the comment');
-  }
-
-  const updatedComment = await prismaClient.comment.update({
-    where: { id },
-    data: { content },
-  });
+  const updatedComment = await commentService.updateComment(id, req.user.id, body.content);
 
   return res.send(updatedComment);
 }
 
-export async function deleteComment(req: Request, res: Response) {
+async function deleteComment(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
 
   const { id } = create(req.params, IdParamsStruct);
+  await commentService.deleteComment(id, req.user.id);
 
-  const existingComment = await prismaClient.comment.findUnique({ where: { id } });
-  if (!existingComment) {
-    throw new NotFoundError('comment', id);
-  }
-
-  if (existingComment.userId !== req.user.id) {
-    throw new ForbiddenError('Should be the owner of the comment');
-  }
-
-  await prismaClient.comment.delete({ where: { id } });
   return res.status(204).send();
 }
+
+commentsRouter.patch('/:id', authenticate(), withAsync(updateComment));
+commentsRouter.delete('/:id', authenticate(), withAsync(deleteComment));
+
+export default commentsRouter;

@@ -1,6 +1,7 @@
+import express, { Request, Response } from 'express';
 import { create } from 'superstruct';
-import { prismaClient } from '../lib/prismaClient';
-import NotFoundError from '../lib/errors/NotFoundError';
+import authenticate from '../middlewares/authenticate';
+import { withAsyncVoid } from '../lib/withAsync';
 import { IdParamsStruct } from '../structs/commonStructs';
 import {
   CreateArticleBodyStruct,
@@ -8,214 +9,80 @@ import {
   GetArticleListParamsStruct,
 } from '../structs/articlesStructs';
 import { CreateCommentBodyStruct, GetCommentListParamsStruct } from '../structs/commentsStruct';
-import UnauthorizedError from '../lib/errors/UnauthorizedError';
-import ForbiddenError from '../lib/errors/ForbiddenError';
-import BadRequestError from '../lib/errors/BadRequestError';
-import { Response, Request } from 'express';
+import { articleService } from '../services/articleService';
 
-export async function createArticle(req: Request, res: Response) {
-  if (!req.user) {
-    throw new UnauthorizedError('Unauthorized');
-  }
+const articlesRouter = express.Router();
 
-  const data = create(req.body, CreateArticleBodyStruct);
-
-  const article = await prismaClient.article.create({
-    data: {
-      ...data,
-      userId: req.user.id,
-    },
-  });
-
-  return res.status(201).send(article);
+async function createArticle(req: Request, res: Response) {
+  const { title, content } = create(req.body, CreateArticleBodyStruct);
+  const article = await articleService.createArticle(title, content, req.user!.id);
+  res.status(201).send(article);
 }
 
-export async function getArticle(req: Request, res: Response) {
+async function getArticleList(req: Request, res: Response) {
+  const {
+    page,
+    pageSize,
+    orderBy = 'recent',
+    keyword,
+  } = create(req.query, GetArticleListParamsStruct);
+  const result = await articleService.getArticleList(page, pageSize, orderBy, keyword);
+  res.send(result);
+}
+
+async function getArticleById(req: Request, res: Response) {
   const { id } = create(req.params, IdParamsStruct);
-
-  const article = await prismaClient.article.findUnique({
-    where: { id },
-    include: {
-      likes: true,
-    },
-  });
-  if (!article) {
-    throw new NotFoundError('article', id);
-  }
-
-  const articleWithLikes = {
-    ...article,
-    likes: undefined,
-    likeCount: article.likes.length,
-    isLiked: req.user ? article.likes.some((like) => like.userId === req.user?.id) : undefined,
-  };
-
-  return res.send(articleWithLikes);
+  const article = await articleService.getArticleById(id);
+  res.send(article);
 }
 
-export async function updateArticle(req: Request, res: Response) {
-  if (!req.user) {
-    throw new UnauthorizedError('Unauthorized');
-  }
-
+async function updateArticle(req: Request, res: Response) {
   const { id } = create(req.params, IdParamsStruct);
   const data = create(req.body, UpdateArticleBodyStruct);
-
-  const existingArticle = await prismaClient.article.findUnique({ where: { id } });
-  if (!existingArticle) {
-    throw new NotFoundError('article', id);
-  }
-
-  if (existingArticle.userId !== req.user.id) {
-    throw new ForbiddenError('Should be the owner of the article');
-  }
-
-  const updatedArticle = await prismaClient.article.update({ where: { id }, data });
-  return res.send(updatedArticle);
+  const updatedArticle = await articleService.updateArticle(id, req.user!.id, data);
+  res.send(updatedArticle);
 }
 
-export async function deleteArticle(req: Request, res: Response) {
-  if (!req.user) {
-    throw new UnauthorizedError('Unauthorized');
-  }
-
+async function deleteArticle(req: Request, res: Response) {
   const { id } = create(req.params, IdParamsStruct);
-
-  const existingArticle = await prismaClient.article.findUnique({ where: { id } });
-  if (!existingArticle) {
-    throw new NotFoundError('article', id);
-  }
-
-  if (existingArticle.userId !== req.user.id) {
-    throw new ForbiddenError('Should be the owner of the article');
-  }
-
-  await prismaClient.article.delete({ where: { id } });
-  return res.status(204).send();
+  await articleService.deleteArticle(id, req.user!.id);
+  res.status(204).send();
 }
 
-export async function getArticleList(req: Request, res: Response) {
-  const { page, pageSize, orderBy, keyword } = create(req.query, GetArticleListParamsStruct);
-
-  const where = {
-    title: keyword ? { contains: keyword } : undefined,
-  };
-
-  const totalCount = await prismaClient.article.count({ where });
-  const articles = await prismaClient.article.findMany({
-    skip: (page - 1) * pageSize,
-    take: pageSize,
-    orderBy: orderBy === 'recent' ? { createdAt: 'desc' } : { id: 'asc' },
-    where,
-    include: {
-      likes: true,
-    },
-  });
-
-  const articlesWithLikes = articles.map((article) => ({
-    ...article,
-    likes: undefined,
-    likeCount: article.likes.length,
-    isLiked: req.user ? article.likes.some((like) => like.userId === req.user?.id) : undefined,
-  }));
-
-  return res.send({
-    list: articlesWithLikes,
-    totalCount,
-  });
-}
-
-export async function createComment(req: Request, res: Response) {
-  if (!req.user) {
-    throw new UnauthorizedError('Unauthorized');
-  }
-
+async function createComment(req: Request, res: Response) {
   const { id: articleId } = create(req.params, IdParamsStruct);
   const { content } = create(req.body, CreateCommentBodyStruct);
-
-  const existingArticle = await prismaClient.article.findUnique({ where: { id: articleId } });
-  if (!existingArticle) {
-    throw new NotFoundError('article', articleId);
-  }
-
-  const createdComment = await prismaClient.comment.create({
-    data: {
-      articleId,
-      content,
-      userId: req.user.id,
-    },
-  });
-
-  return res.status(201).send(createdComment);
+  const comment = await articleService.createComment(articleId, content, req.user!.id);
+  res.status(201).send(comment);
 }
 
-export async function getCommentList(req: Request, res: Response) {
+async function getComments(req: Request, res: Response) {
   const { id: articleId } = create(req.params, IdParamsStruct);
   const { cursor, limit } = create(req.query, GetCommentListParamsStruct);
-
-  const article = await prismaClient.article.findUnique({ where: { id: articleId } });
-  if (!article) {
-    throw new NotFoundError('article', articleId);
-  }
-
-  const commentsWithCursor = await prismaClient.comment.findMany({
-    cursor: cursor ? { id: cursor } : undefined,
-    take: limit + 1,
-    where: { articleId },
-    orderBy: { createdAt: 'desc' },
-  });
-  const comments = commentsWithCursor.slice(0, limit);
-  const cursorComment = commentsWithCursor[commentsWithCursor.length - 1];
-  const nextCursor = cursorComment ? cursorComment.id : null;
-
-  return res.send({
-    list: comments,
-    nextCursor,
-  });
+  const comments = await articleService.getComments(articleId, cursor, limit);
+  res.send(comments);
 }
 
-export async function createLike(req: Request, res: Response) {
-  if (!req.user) {
-    throw new UnauthorizedError('Unauthorized');
-  }
-
+async function likeArticle(req: Request, res: Response) {
   const { id: articleId } = create(req.params, IdParamsStruct);
-
-  const existingArticle = await prismaClient.article.findUnique({ where: { id: articleId } });
-  if (!existingArticle) {
-    throw new NotFoundError('article', articleId);
-  }
-
-  const existingLike = await prismaClient.like.findFirst({
-    where: { articleId, userId: req.user.id },
-  });
-  if (existingLike) {
-    throw new BadRequestError('Already liked');
-  }
-
-  await prismaClient.like.create({ data: { articleId, userId: req.user.id } });
-  return res.status(201).send();
+  await articleService.likeArticle(articleId, req.user!.id);
+  res.status(201).send();
 }
 
-export async function deleteLike(req: Request, res: Response) {
-  if (!req.user) {
-    throw new UnauthorizedError('Unauthorized');
-  }
-
+async function unlikeArticle(req: Request, res: Response) {
   const { id: articleId } = create(req.params, IdParamsStruct);
-
-  const existingArticle = await prismaClient.article.findUnique({ where: { id: articleId } });
-  if (!existingArticle) {
-    throw new NotFoundError('article', articleId);
-  }
-
-  const existingLike = await prismaClient.like.findFirst({
-    where: { articleId, userId: req.user.id },
-  });
-  if (!existingLike) {
-    throw new BadRequestError('Not liked');
-  }
-
-  await prismaClient.like.delete({ where: { id: existingLike.id } });
-  return res.status(204).send();
+  await articleService.unlikeArticle(articleId, req.user!.id);
+  res.status(204).send();
 }
+
+articlesRouter.post('/', authenticate(), withAsyncVoid(createArticle));
+articlesRouter.get('/', authenticate({ optional: true }), withAsyncVoid(getArticleList));
+articlesRouter.get('/:id', authenticate({ optional: true }), withAsyncVoid(getArticleById));
+articlesRouter.patch('/:id', authenticate(), withAsyncVoid(updateArticle));
+articlesRouter.delete('/:id', authenticate(), withAsyncVoid(deleteArticle));
+articlesRouter.post('/:id/comments', authenticate(), withAsyncVoid(createComment));
+articlesRouter.get('/:id/comments', withAsyncVoid(getComments));
+articlesRouter.post('/:id/likes', authenticate(), withAsyncVoid(likeArticle));
+articlesRouter.delete('/:id/likes', authenticate(), withAsyncVoid(unlikeArticle));
+
+export default articlesRouter;
