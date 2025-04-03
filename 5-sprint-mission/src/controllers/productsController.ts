@@ -24,7 +24,7 @@ async function createProduct(req: Request, res: Response) {
 
 async function getProduct(req: Request, res: Response) {
   const { id } = create(req.params, IdParamsStruct);
-  const product = await productService.getProduct(id, req.user.id);
+  const product = await productService.getProduct(id, req.user?.id);
   return res.send(product);
 }
 

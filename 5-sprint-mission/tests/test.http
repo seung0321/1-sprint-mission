@@ -68,7 +68,7 @@ DELETE http://localhost:3000/comments/1
 ### 새로운 Product 만들기 테스트
 POST http://localhost:3000/products
 Content-Type: application/json
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDM2Njc0Nzd9.cH37Fgu3CGIfepqnvPe0yQ5IDkqpNgywrtpCpUbLNNU; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 08:04:37 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDQyNjg2Nzd9.R9Jol1ODMYY3oYcAdSF6zlrtb_ZFJ3jC21XNwog0fQI; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 07:04:37 GMT; HttpOnly
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY3OTcyLCJleHAiOjE3NDM2NzE1NzJ9.xzdKJQoNL_gDYGjPvyLbutn-gsIVw7F78EmqTJaVOQI; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 09:12:52 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY3OTcyLCJleHAiOjE3NDQyNzI3NzJ9.59Nu1HPZ8IPsUSw5RTNIsnYCWM8uCLqnLFMlb41z5Hg; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 08:12:52 GMT; HttpOnly
 
 {
     "name": "테스트 Product",
@@ -87,7 +87,7 @@ GET http://localhost:3000/products/4
 ### Product 업데이트하기 테스트
 PATCH http://localhost:3000/products/5
 Content-Type: application/json
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDM2Njc0Nzd9.cH37Fgu3CGIfepqnvPe0yQ5IDkqpNgywrtpCpUbLNNU; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 08:04:37 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDQyNjg2Nzd9.R9Jol1ODMYY3oYcAdSF6zlrtb_ZFJ3jC21XNwog0fQI; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 07:04:37 GMT; HttpOnly
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY3NTA5LCJleHAiOjE3NDM2NzExMDl9.hZ5E_eSAf-2qDjop519HOMOmJuRpeg8a2xE3kfzOvhs; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 09:05:09 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY3NTA5LCJleHAiOjE3NDQyNzIzMDl9.XUB6jHGLIhd6jQNUx7-aTlTkfg-1X8nbpum8sxPx1c0; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 08:05:09 GMT; HttpOnly
 
 {
     "name": "업데이트된 테스트 Product",
@@ -112,7 +112,7 @@ DELETE http://localhost:3000/products/1/favorites
 ### Product에 Comment 달기 테스트
 POST http://localhost:3000/products/2/comments
 Content-Type: application/json
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNTcxNDk5LCJleHAiOjE3NDM1NzUwOTl9.S9mzt_kIoZ1vmmp0Lndxv8aBeF0P6MVoXBa_cubyYFA; Max-Age=3600; Path=/; Expires=Wed, 02 Apr 2025 06:24:59 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNTcxNDk5LCJleHAiOjE3NDQxNzYyOTl9.fi7djYZPps08USEvex4DpUoK9Qm7iN4r0nEd0QiZpJU; Max-Age=604800; Path=/auth/refresh; Expires=Wed, 09 Apr 2025 05:24:59 GMT; HttpOnly
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY3NTA5LCJleHAiOjE3NDM2NzExMDl9.hZ5E_eSAf-2qDjop519HOMOmJuRpeg8a2xE3kfzOvhs; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 09:05:09 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY3NTA5LCJleHAiOjE3NDQyNzIzMDl9.XUB6jHGLIhd6jQNUx7-aTlTkfg-1X8nbpum8sxPx1c0; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 08:05:09 GMT; HttpOnly
 
 {
     "content": "이것은 Product에 대한 테스트 Comment입니다."
@@ -165,11 +165,13 @@ Content-Type: application/json
 
 {
     "email": "testuser1@example.com",
-    "password": "newtestpassword"
+    "password": "newtestpassword1"
 }
 
 ### 로그아웃 테스트
 POST http://localhost:3000/auth/logout
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY4MTAxLCJleHAiOjE3NDM2NzE3MDF9.S0u5iJIMtTgmW_J1ddeFr36GLMYvwWdRWCVLsedQhiY; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 09:15:01 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY4MTAxLCJleHAiOjE3NDQyNzI5MDF9.DiKZ9UMsA50wUt-YrnpjwmbE2JnmTHeNCE6APVsNiWY; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 08:15:01 GMT; HttpOnly
+
 
 ### 토큰 갱신 테스트
 POST http://localhost:3000/auth/refresh
