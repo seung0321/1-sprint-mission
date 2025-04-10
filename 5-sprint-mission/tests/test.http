@@ -4,7 +4,7 @@ GET http://localhost:3000/articles?orderBy=recent
 ### 새로운 Article 만들기
 POST http://localhost:3000/articles
 Content-Type: application/json
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDM2Njc0Nzd9.cH37Fgu3CGIfepqnvPe0yQ5IDkqpNgywrtpCpUbLNNU; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 08:04:37 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDQyNjg2Nzd9.R9Jol1ODMYY3oYcAdSF6zlrtb_ZFJ3jC21XNwog0fQI; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 07:04:37 GMT; HttpOnly
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzI4OTUzLCJleHAiOjE3NDM3MzI1NTN9.vxe5RODz9egAb1krSnzegywLNY85OItt0B4o-A6RSZs; Max-Age=3600; Path=/; Expires=Fri, 04 Apr 2025 02:09:13 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzI4OTUzLCJleHAiOjE3NDQzMzM3NTN9.K587SI2jj9_X820S1eNGJaBTuHu_Kg5fdEZsxobPIWI; Max-Age=604800; Path=/auth/refresh; Expires=Fri, 11 Apr 2025 01:09:13 GMT; HttpOnly
 
 {
     "title": "새로운 Article",
@@ -31,8 +31,8 @@ Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNz
 
 
 ### Article 좋아요 테스트
-POST http://localhost:3000/articles/7/likes
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDM2Njc0Nzd9.cH37Fgu3CGIfepqnvPe0yQ5IDkqpNgywrtpCpUbLNNU; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 08:04:37 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDQyNjg2Nzd9.R9Jol1ODMYY3oYcAdSF6zlrtb_ZFJ3jC21XNwog0fQI; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 07:04:37 GMT; HttpOnly
+POST http://localhost:3000/articles/5/likes
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzI4OTUzLCJleHAiOjE3NDM3MzI1NTN9.vxe5RODz9egAb1krSnzegywLNY85OItt0B4o-A6RSZs; Max-Age=3600; Path=/; Expires=Fri, 04 Apr 2025 02:09:13 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzI4OTUzLCJleHAiOjE3NDQzMzM3NTN9.K587SI2jj9_X820S1eNGJaBTuHu_Kg5fdEZsxobPIWI; Max-Age=604800; Path=/auth/refresh; Expires=Fri, 11 Apr 2025 01:09:13 GMT; HttpOnly
 
 
 ### Article 좋아요 취소 테스트
@@ -44,7 +44,7 @@ Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNz
 ### Article에 Comment 달기 테스트
 POST http://localhost:3000/articles/6/comments
 Content-Type: application/json
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDM2Njc0Nzd9.cH37Fgu3CGIfepqnvPe0yQ5IDkqpNgywrtpCpUbLNNU; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 08:04:37 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDQyNjg2Nzd9.R9Jol1ODMYY3oYcAdSF6zlrtb_ZFJ3jC21XNwog0fQI; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 07:04:37 GMT; HttpOnly
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzI4OTUzLCJleHAiOjE3NDM3MzI1NTN9.vxe5RODz9egAb1krSnzegywLNY85OItt0B4o-A6RSZs; Max-Age=3600; Path=/; Expires=Fri, 04 Apr 2025 02:09:13 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzI4OTUzLCJleHAiOjE3NDQzMzM3NTN9.K587SI2jj9_X820S1eNGJaBTuHu_Kg5fdEZsxobPIWI; Max-Age=604800; Path=/auth/refresh; Expires=Fri, 11 Apr 2025 01:09:13 GMT; HttpOnly
 
 {
     "content": "이것은 Article에 대한 테스트 Comment입니다."
@@ -68,7 +68,7 @@ DELETE http://localhost:3000/comments/1
 ### 새로운 Product 만들기 테스트
 POST http://localhost:3000/products
 Content-Type: application/json
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY3OTcyLCJleHAiOjE3NDM2NzE1NzJ9.xzdKJQoNL_gDYGjPvyLbutn-gsIVw7F78EmqTJaVOQI; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 09:12:52 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjY3OTcyLCJleHAiOjE3NDQyNzI3NzJ9.59Nu1HPZ8IPsUSw5RTNIsnYCWM8uCLqnLFMlb41z5Hg; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 08:12:52 GMT; HttpOnly
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzI4OTUzLCJleHAiOjE3NDM3MzI1NTN9.vxe5RODz9egAb1krSnzegywLNY85OItt0B4o-A6RSZs; Max-Age=3600; Path=/; Expires=Fri, 04 Apr 2025 02:09:13 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzI4OTUzLCJleHAiOjE3NDQzMzM3NTN9.K587SI2jj9_X820S1eNGJaBTuHu_Kg5fdEZsxobPIWI; Max-Age=604800; Path=/auth/refresh; Expires=Fri, 11 Apr 2025 01:09:13 GMT; HttpOnly
 
 {
     "name": "테스트 Product",
@@ -154,7 +154,7 @@ Content-Type: application/json
 
 {
 
-    "email": "testuser111@example.com",
+    "email": "testuser11@example.com",
     "nickname": "testuser1",
     "password": "testpassword"
 }
@@ -164,8 +164,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "testuser1@example.com",
-    "password": "newtestpassword1"
+    "email": "testuser11@example.com",
+    "password": "testpassword"
 }
 
 ### 로그아웃 테스트
@@ -184,7 +184,7 @@ GET http://localhost:3000/users/me
 ### 내 정보 업데이트 테스트
 PATCH http://localhost:3000/users/me
 Content-Type: application/json
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDM2Njc0Nzd9.cH37Fgu3CGIfepqnvPe0yQ5IDkqpNgywrtpCpUbLNNU; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 08:04:37 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDQyNjg2Nzd9.R9Jol1ODMYY3oYcAdSF6zlrtb_ZFJ3jC21XNwog0fQI; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 07:04:37 GMT; HttpOnly
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ0MDE1NDk5LCJleHAiOjE3NDQwMTkwOTl9.WurkaiKe9nQ9_fTcCT3G_hn-Q3aV7gPpbUiZ6VSWDvQ; Max-Age=3600; Path=/; Expires=Mon, 07 Apr 2025 09:44:59 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ0MDE1NDk5LCJleHAiOjE3NDQ2MjAyOTl9.OMe2IxflMuzSOZK6IygMDF50syDnXlojn1gisnpwyl4; Max-Age=604800; Path=/auth/refresh; Expires=Mon, 14 Apr 2025 08:44:59 GMT; HttpOnly
 
 {
     "nickname": "testuser-edit"
@@ -193,10 +193,10 @@ Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNz
 ### 내 비밀번호 업데이트 테스트
 PATCH http://localhost:3000/users/me/password
 Content-Type: application/json
-Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDM2Njc0Nzd9.cH37Fgu3CGIfepqnvPe0yQ5IDkqpNgywrtpCpUbLNNU; Max-Age=3600; Path=/; Expires=Thu, 03 Apr 2025 08:04:37 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQzNjYzODc3LCJleHAiOjE3NDQyNjg2Nzd9.R9Jol1ODMYY3oYcAdSF6zlrtb_ZFJ3jC21XNwog0fQI; Max-Age=604800; Path=/auth/refresh; Expires=Thu, 10 Apr 2025 07:04:37 GMT; HttpOnly
+Cookie: access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ0MDE1NDk5LCJleHAiOjE3NDQwMTkwOTl9.WurkaiKe9nQ9_fTcCT3G_hn-Q3aV7gPpbUiZ6VSWDvQ; Max-Age=3600; Path=/; Expires=Mon, 07 Apr 2025 09:44:59 GMT; HttpOnly,refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ0MDE1NDk5LCJleHAiOjE3NDQ2MjAyOTl9.OMe2IxflMuzSOZK6IygMDF50syDnXlojn1gisnpwyl4; Max-Age=604800; Path=/auth/refresh; Expires=Mon, 14 Apr 2025 08:44:59 GMT; HttpOnly
 
 {
-    "password": "newtestpassword",
+    "password": "testpassword",
     "newPassword": "newtestpassword1"
 }
 
