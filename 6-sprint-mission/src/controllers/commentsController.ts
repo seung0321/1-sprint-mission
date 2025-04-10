@@ -2,15 +2,13 @@ import express, { Request, Response } from 'express';
 import { create } from 'superstruct';
 import { UpdateCommentBodyStruct } from '../structs/commentsStruct';
 import { IdParamsStruct } from '../structs/commonStructs';
-import { withAsync } from '../lib/withAsync';
-import authenticate from '../middlewares/authenticate';
 import { commentService } from '../services/commentService';
 import UnauthorizedError from '../lib/errors/UnauthorizedError';
 import BadRequestError from '../lib/errors/BadRequestError';
 
 const commentsRouter = express.Router();
 
-async function updateComment(req: Request, res: Response) {
+export async function updateComment(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -27,7 +25,7 @@ async function updateComment(req: Request, res: Response) {
   return res.send(updatedComment);
 }
 
-async function deleteComment(req: Request, res: Response) {
+export async function deleteComment(req: Request, res: Response) {
   if (!req.user) {
     throw new UnauthorizedError('Unauthorized');
   }
@@ -37,8 +35,3 @@ async function deleteComment(req: Request, res: Response) {
 
   return res.status(204).send();
 }
-
-commentsRouter.patch('/:id', authenticate(), withAsync(updateComment));
-commentsRouter.delete('/:id', authenticate(), withAsync(deleteComment));
-
-export default commentsRouter;

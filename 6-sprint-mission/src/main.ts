@@ -3,12 +3,12 @@ import cors from 'cors';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import { PORT, PUBLIC_PATH, STATIC_PATH } from './lib/constants';
-import articlesRouter from './controllers/articlesController';
-import productsRouter from './controllers/productsController';
-import commentsRouter from './controllers/commentsController';
-import imagesRouter from './controllers/imagesController';
-import authRouter from './controllers/authController';
-import usersRouter from './controllers/usersController';
+import articlesRouter from './routers/articlesRouter';
+import productsRouter from './routers/productsRouter';
+import commentsRouter from './routers/commentRouter';
+import imagesRouter from './routers/imagesRouter';
+import authRouter from './routers/authRouter';
+import usersRouter from './routers/usersRouter';
 import { defaultNotFoundHandler, globalErrorHandler } from './controllers/errorController';
 
 const app = express();
