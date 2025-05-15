@@ -7,6 +7,8 @@ import {
   updateMyPassword,
   getMyProducts,
   getMyFavorites,
+  getNotifications,
+  getUnreadCount,
 } from '../controllers/usersController';
 
 const usersRouter = express.Router();
@@ -16,5 +18,7 @@ usersRouter.patch('/me', authenticate(), withAsync(updateMe));
 usersRouter.patch('/me/password', authenticate(), withAsync(updateMyPassword));
 usersRouter.get('/me/products', authenticate(), withAsync(getMyProducts));
 usersRouter.get('/me/favorites', authenticate(), withAsync(getMyFavorites));
+usersRouter.get('/notification', authenticate(), withAsync(getNotifications));
+usersRouter.get('/unread-count', authenticate(), withAsync(getUnreadCount));
 
 export default usersRouter;

@@ -54,4 +54,16 @@ export const userRepository = {
     });
     return { products, totalCount };
   },
+  findAllByUserId: (userId: number) => {
+    return prismaClient.notification.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+    });
+  },
+
+  countUnreadByUserId: (userId: number) => {
+    return prismaClient.notification.count({
+      where: { userId, read: false },
+    });
+  },
 };

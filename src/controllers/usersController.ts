@@ -7,6 +7,7 @@ import {
   GetMyProductListParamsStruct,
   GetMyFavoriteListParamsStruct,
 } from '../structs/usersStructs';
+import UnauthorizedError from '../lib/errors/UnauthorizedError';
 
 export async function getMe(req: Request, res: Response) {
   const user = await userService.getUserProfile(req.user!.id);
@@ -36,3 +37,21 @@ export async function getMyFavorites(req: Request, res: Response) {
   const { products, totalCount } = await userService.getUserFavorites(req.user!.id, params);
   return res.send({ list: products, totalCount });
 }
+
+export const getNotifications = async (req: Request, res: Response) => {
+  if (!req.user) {
+    throw new UnauthorizedError('Unauthorized');
+  }
+  const userId = req.user.id;
+  const notifications = await userService.getAll(userId);
+  return res.json(notifications);
+};
+
+export const getUnreadCount = async (req: Request, res: Response) => {
+  if (!req.user) {
+    throw new UnauthorizedError('Unauthorized');
+  }
+  const userId = req.user.id;
+  const count = await userService.getUnreadCount(userId);
+  return res.json({ unreadCount: count });
+};

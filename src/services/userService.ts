@@ -57,4 +57,11 @@ export const userService = {
       orderBy === 'recent' ? { id: 'desc' } : { id: 'asc' },
     );
   },
+  getAll: (userId: number) => {
+    return userRepository.findAllByUserId(userId);
+  },
+
+  getUnreadCount: (userId: number) => {
+    return userRepository.countUnreadByUserId(userId);
+  },
 };
