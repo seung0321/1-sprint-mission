@@ -2,6 +2,9 @@ import { productRepository } from '../repositories/productRepository';
 import NotFoundError from '../lib/errors/NotFoundError';
 import ForbiddenError from '../lib/errors/ForbiddenError';
 import BadRequestError from '../lib/errors/BadRequestError';
+import { notificationService } from './notificationService';
+import { NotificationType } from '@prisma/client';
+import { io, userSockets } from './socketService';
 
 export const productService = {
   createProduct: async (data: any, userId: number) => {
@@ -26,7 +29,43 @@ export const productService = {
     if (existingProduct.userId !== userId)
       throw new ForbiddenError('You are not the owner of this product');
 
-    return productRepository.updateProduct(id, data);
+    // 가격이 바뀌었는지 확인
+    const oldPrice = existingProduct.price;
+    const newPrice = data.price;
+
+    const updatedProduct = await productRepository.updateProduct(id, data);
+
+    // 가격이 변경된 경우
+    if (newPrice !== undefined && oldPrice !== newPrice) {
+      const favoritedUsers = existingProduct.favorites.map((f) => f.userId);
+
+      const payload = {
+        productId: id,
+        oldPrice,
+        newPrice,
+      };
+
+      // 알림 저장 및 전송
+      await Promise.all(
+        favoritedUsers.map(async (userId) => {
+          await notificationService.createNotification(
+            userId,
+            NotificationType.price_fluctuation,
+            payload,
+          );
+
+          const targetSocketId = userSockets.get(userId);
+          if (targetSocketId) {
+            io.to(targetSocketId).emit('notification', {
+              type: NotificationType.price_fluctuation,
+              payload,
+            });
+          }
+        }),
+      );
+    }
+
+    return updatedProduct;
   },
 
   deleteProduct: async (id: number, userId: number) => {
