@@ -11,3 +11,5 @@ public/*
 
 dist/
 tests/note/
+
+tests/*
