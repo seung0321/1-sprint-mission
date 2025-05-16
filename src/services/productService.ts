@@ -48,11 +48,11 @@ export const productService = {
       // 알림 저장 및 전송
       await Promise.all(
         favoritedUsers.map(async (userId) => {
-          await notificationService.createNotification(
+          await notificationService.createNotification({
             userId,
-            NotificationType.price_fluctuation,
+            type: NotificationType.price_fluctuation,
             payload,
-          );
+          });
 
           const targetSocketId = userSockets.get(userId);
           if (targetSocketId) {

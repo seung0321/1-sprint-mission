@@ -70,11 +70,11 @@ export const createComment = async (req: Request, res: Response) => {
     };
 
     // 🔸 1. 알림 DB 저장
-    await notificationService.createNotification(
-      article.userId,
-      NotificationType.create_comment,
+    await notificationService.createNotification({
+      userId: article.userId,
+      type: NotificationType.create_comment,
       payload,
-    );
+    });
 
     // 🔸 2. 실시간 알림 전송
     const targetSocketId = userSockets.get(article.userId);

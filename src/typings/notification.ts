@@ -14,9 +14,8 @@ export type CreateCommentPayload = {
 
 export type NotificationPayload = PriceFluctuationPayload | CreateCommentPayload;
 
-export interface NotificationResponse {
+export interface NotificationData {
   userId: number;
   type: NotificationType;
   payload: NotificationPayload;
-  read: boolean;
 }

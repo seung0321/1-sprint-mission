@@ -1,5 +1,6 @@
 import { prismaClient } from '../lib/prismaClient';
-import { NotificationPayload, NotificationType } from '../typings/notification';
+import { NotificationData } from '../typings/notification';
+
 export const notificationRepository = {
   markAsRead: (id: number) => {
     return prismaClient.notification.update({
@@ -15,7 +16,7 @@ export const notificationRepository = {
     });
   },
 
-  create: (data: { userId: number; type: NotificationType; payload: NotificationPayload }) => {
-    return prismaClient.notification.create({ data });
+  create: (notificationData: NotificationData) => {
+    return prismaClient.notification.create({ data: notificationData });
   },
 };
