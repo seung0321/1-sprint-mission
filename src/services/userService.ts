@@ -57,11 +57,15 @@ export const userService = {
       orderBy === 'recent' ? { id: 'desc' } : { id: 'asc' },
     );
   },
-  getAll: (userId: number) => {
-    return userRepository.findAllByUserId(userId);
-  },
-
-  getUnreadCount: (userId: number) => {
-    return userRepository.countUnreadByUserId(userId);
+  getNotifications: async (
+    userId: number,
+    params: {
+      cursor: number;
+      limit: number;
+      keyword?: string;
+      orderBy?: 'recent';
+    },
+  ) => {
+    return await userRepository.findNotifications(userId, params);
   },
 };

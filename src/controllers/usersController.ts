@@ -8,6 +8,7 @@ import {
   GetMyFavoriteListParamsStruct,
 } from '../structs/usersStructs';
 import UnauthorizedError from '../lib/errors/UnauthorizedError';
+import { CursorParamsStruct } from '../structs/commonStructs';
 
 export async function getMe(req: Request, res: Response) {
   const user = await userService.getUserProfile(req.user!.id);
@@ -39,19 +40,23 @@ export async function getMyFavorites(req: Request, res: Response) {
 }
 
 export const getNotifications = async (req: Request, res: Response) => {
-  if (!req.user) {
-    throw new UnauthorizedError('Unauthorized');
-  }
-  const userId = req.user.id;
-  const notifications = await userService.getAll(userId);
-  return res.json(notifications);
-};
+  if (!req.user) throw new UnauthorizedError('Unauthorized');
 
-export const getUnreadCount = async (req: Request, res: Response) => {
-  if (!req.user) {
-    throw new UnauthorizedError('Unauthorized');
-  }
   const userId = req.user.id;
-  const count = await userService.getUnreadCount(userId);
-  return res.json({ unreadCount: count });
+  const params = create(req.query, CursorParamsStruct);
+
+  const { cursor, limit, keyword, orderBy } = params;
+
+  const { notifications, nextCursor, unreadCount } = await userService.getNotifications(userId, {
+    cursor,
+    limit,
+    keyword,
+    orderBy,
+  });
+
+  return res.json({
+    nextCursor,
+    unreadCount,
+    notifications,
+  });
 };

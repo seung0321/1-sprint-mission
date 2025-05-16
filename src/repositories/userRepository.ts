@@ -1,6 +1,6 @@
 import { prismaClient } from '../lib/prismaClient';
 import { User } from '@prisma/client';
-
+import { NotificationType } from '@prisma/client';
 export const userRepository = {
   async findById(userId: number): Promise<User | null> {
     return prismaClient.user.findUnique({ where: { id: userId } });
@@ -54,16 +54,67 @@ export const userRepository = {
     });
     return { products, totalCount };
   },
-  findAllByUserId: (userId: number) => {
-    return prismaClient.notification.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
-    });
-  },
+  findNotifications: async (
+    userId: number,
+    params: {
+      cursor: number;
+      limit: number;
+      keyword?: string;
+      orderBy?: 'recent';
+    },
+  ) => {
+    const { cursor, limit, keyword, orderBy } = params;
 
-  countUnreadByUserId: (userId: number) => {
-    return prismaClient.notification.count({
+    const where = {
+      userId,
+      ...(keyword
+        ? {
+            OR: [
+              {
+                type: {
+                  equals: keyword as NotificationType,
+                },
+              },
+              {
+                payload: {
+                  path: ['message'], // JSON 검색 (예시)
+                  string_contains: keyword,
+                  mode: 'insensitive',
+                },
+              },
+            ],
+          }
+        : {}),
+    };
+
+    const notifications = await prismaClient.notification.findMany({
+      where,
+      take: limit + 1, // 다음 페이지 확인용
+      skip: cursor > 0 ? 1 : 0,
+      ...(cursor > 0
+        ? {
+            cursor: { id: cursor },
+          }
+        : {}),
+      orderBy: {
+        createdAt: orderBy === 'recent' ? 'desc' : 'asc',
+      },
+    });
+
+    const nextCursor = notifications.length > limit ? notifications[limit].id : null;
+
+    if (notifications.length > limit) {
+      notifications.pop(); // 다음 페이지 확인용으로 하나 빼줌
+    }
+
+    const unreadCount = await prismaClient.notification.count({
       where: { userId, read: false },
     });
+
+    return {
+      notifications,
+      nextCursor,
+      unreadCount,
+    };
   },
 };
