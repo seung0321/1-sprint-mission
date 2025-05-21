@@ -3,6 +3,9 @@
     "start": "node dist/main.js",
     "dev": "nodemon --watch src src/main.ts",
     "build": "tsc",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "ts-node prisma/seed.ts",
     "test": "dotenv -e .env.test -- npm run prisma:migrate && dotenv -e .env.test -- jest -i"
   },
   "devDependencies": {
