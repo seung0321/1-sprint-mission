@@ -101,10 +101,16 @@ export const productService = {
   },
 
   createComment: async (productId: number, content: string, userId: number) => {
+    const product = await productRepository.findProductById(productId);
+    if (!product) throw new NotFoundError('product', productId);
+
     return productRepository.createComment(productId, content, userId);
   },
 
   getComments: async (productId: number, cursor?: number, limit?: number) => {
+    const product = await productRepository.findProductById(productId);
+    if (!product) throw new NotFoundError('product', productId);
+
     const comments = await productRepository.findCommentsByProductId(productId, cursor, limit);
     return {
       list: comments.slice(0, limit),
