@@ -3,13 +3,16 @@
 node_modules/
 .env*
 !.env.example
+coverage/
 
 # Uploaded files
 public/*
 !public/.gitkeep
 !public/index.html
 
+#ts/js
 dist/
-tests/note/
 
+#request
+tests/note/
 tests/*

@@ -6,7 +6,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "ts-node prisma/seed.ts",
-    "test": "dotenv -e .env.test -- npm run prisma:migrate && dotenv -e .env.test -- jest -i"
+    "test": "dotenv -e .env.test -- npm run prisma:migrate && dotenv -e .env.test -- jest -i",
+    "coverage": "dotenv -e .env.test -- npm run prisma:migrate && dotenv -e .env.test -- jest -i --coverage"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
