@@ -11,5 +11,5 @@ export async function uploadImage(req: Request, res: Response) {
   }
 
   const url = generateImageUrl(host, req.file.filename);
-  return res.send({ url });
+  return res.status(201).send({ url });
 }

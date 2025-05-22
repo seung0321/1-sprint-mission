@@ -21,7 +21,7 @@ export async function createProduct(req: Request, res: Response) {
 export async function getProduct(req: Request, res: Response) {
   const { id } = create(req.params, IdParamsStruct);
   const product = await productService.getProduct(id, req.user?.id);
-  return res.send(product);
+  return res.status(200).send(product);
 }
 
 export async function updateProduct(req: Request, res: Response) {
@@ -31,7 +31,7 @@ export async function updateProduct(req: Request, res: Response) {
   const { id } = create(req.params, IdParamsStruct);
   const data = create(req.body, UpdateProductBodyStruct);
   const updatedProduct = await productService.updateProduct(id, data, req.user!.id);
-  return res.send(updatedProduct);
+  return res.status(200).send(updatedProduct);
 }
 
 export async function deleteProduct(req: Request, res: Response) {
@@ -51,7 +51,7 @@ export async function getProductList(req: Request, res: Response) {
     orderBy ?? 'recent',
     keyword,
   );
-  return res.send(productList);
+  return res.status(200).send(productList);
 }
 
 export async function createComment(req: Request, res: Response) {
@@ -68,7 +68,7 @@ export async function getComments(req: Request, res: Response) {
   const { id: productId } = create(req.params, IdParamsStruct);
   const { cursor, limit } = create(req.query, GetCommentListParamsStruct);
   const comments = await productService.getComments(productId, cursor, limit);
-  return res.send(comments);
+  return res.status(200).send(comments);
 }
 
 export async function addFavorite(req: Request, res: Response) {

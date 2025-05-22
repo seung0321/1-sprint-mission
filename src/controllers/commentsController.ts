@@ -22,7 +22,7 @@ export async function updateComment(req: Request, res: Response) {
 
   const updatedComment = await commentService.updateComment(id, req.user.id, body.content);
 
-  return res.send(updatedComment);
+  return res.status(200).send(updatedComment);
 }
 
 export async function deleteComment(req: Request, res: Response) {

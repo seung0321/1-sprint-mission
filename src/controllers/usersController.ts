@@ -30,13 +30,13 @@ export async function updateMyPassword(req: Request, res: Response) {
 export async function getMyProducts(req: Request, res: Response) {
   const params = create(req.query, GetMyProductListParamsStruct);
   const { products, totalCount } = await userService.getUserProducts(req.user!.id, params);
-  return res.send({ list: products, totalCount });
+  return res.status(200).send({ list: products, totalCount });
 }
 
 export async function getMyFavorites(req: Request, res: Response) {
   const params = create(req.query, GetMyFavoriteListParamsStruct);
   const { products, totalCount } = await userService.getUserFavorites(req.user!.id, params);
-  return res.send({ list: products, totalCount });
+  return res.status(200).send({ list: products, totalCount });
 }
 
 export const getNotifications = async (req: Request, res: Response) => {
@@ -54,7 +54,7 @@ export const getNotifications = async (req: Request, res: Response) => {
     orderBy,
   });
 
-  return res.json({
+  return res.status(200).json({
     nextCursor,
     unreadCount,
     notifications,

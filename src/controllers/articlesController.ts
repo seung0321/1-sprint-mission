@@ -27,20 +27,20 @@ export const getArticleList = async (req: Request, res: Response) => {
     keyword,
   } = create(req.query, GetArticleListParamsStruct);
   const result = await articleService.getArticleList(page, pageSize, orderBy, keyword);
-  return res.send(result);
+  return res.status(200).send(result);
 };
 
 export const getArticleById = async (req: Request, res: Response) => {
   const { id } = create(req.params, IdParamsStruct);
   const article = await articleService.getArticleById(id);
-  return res.send(article);
+  return res.status(200).send(article);
 };
 
 export const updateArticle = async (req: Request, res: Response) => {
   const { id } = create(req.params, IdParamsStruct);
   const data = create(req.body, UpdateArticleBodyStruct);
   const updatedArticle = await articleService.updateArticle(id, req.user!.id, data);
-  return res.send(updatedArticle);
+  return res.status(200).send(updatedArticle);
 };
 
 export const deleteArticle = async (req: Request, res: Response) => {
@@ -93,7 +93,7 @@ export const getComments = async (req: Request, res: Response) => {
   const { id: articleId } = create(req.params, IdParamsStruct);
   const { cursor, limit } = create(req.query, GetCommentListParamsStruct);
   const comments = await articleService.getComments(articleId, cursor, limit);
-  return res.send(comments);
+  return res.status(200).send(comments);
 };
 
 export const likeArticle = async (req: Request, res: Response) => {
