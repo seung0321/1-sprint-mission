@@ -5,7 +5,7 @@ import { clearDatabase } from '../lib/utils/testDeleteUtils';
 import { registerAndLogin } from '../lib/utils/testAuthUtils';
 import { Product } from '@prisma/client';
 import { createTestUser, createTestProduct } from '../lib/utils/testProductUtils';
-
+import bcrypt from 'bcrypt';
 describe('상품 API 테스트', () => {
   beforeEach(async () => {
     await clearDatabase(prismaClient);
@@ -46,7 +46,7 @@ describe('상품 API 테스트', () => {
     });
   });
 
-  describe('GET /product', () => {
+  describe('GET /products', () => {
     test('페이지네이션 기반 상품을 조회하여 200을 반환한다.', async () => {
       const user = await createTestUser();
       await createTestProduct(user.id, { name: '테스트 Product1', tags: ['주방용품'] });
@@ -190,6 +190,62 @@ describe('상품 API 테스트', () => {
       expect(response.body.id).toBe(product1.id);
       expect(response.body.name).toBe(updateProduct.name);
       expect(response.body.tags).toEqual(updateProduct.tags);
+    });
+    test('상품 등록자가 가격을 수정 시 좋아요를 누른 사용자에게 알림이 생성된다', async () => {
+      const { agent, user } = await registerAndLogin();
+      const user2 = await prismaClient.user.create({
+        data: {
+          email: 'test2@example.com',
+          password: bcrypt.hashSync('password', 10), // 서버가 해싱 비교할 수 있게!
+          nickname: 'test User2',
+        },
+      });
+
+      const product1 = await prismaClient.product.create({
+        data: {
+          name: '테스트 Product',
+          description: '이것은 테스트 Product 설명입니다.',
+          price: 10000,
+          tags: ['태그'],
+          images: ['image1.png'],
+          userId: user2.id,
+        },
+        include: {
+          favorites: true,
+        },
+      });
+      const updatedProduct = {
+        price: 15000,
+      };
+
+      const likeResponse = await agent.post(`/products/${product1.id}/favorites`);
+      expect(likeResponse.status).toBe(201);
+
+      const agent2 = request.agent(app);
+      const loginRes = await agent2.post('/auth/login').send({
+        email: 'test2@example.com',
+        password: 'password',
+      });
+      expect(loginRes.status).toBe(200);
+      const updateResponse = await agent2.patch(`/products/${product1.id}`).send(updatedProduct);
+      expect(updateResponse.status).toBe(200);
+
+      const notifications = await prismaClient.notification.findMany({
+        where: {
+          userId: user.body.id,
+          type: 'price_fluctuation',
+        },
+      });
+
+      expect(notifications.length).toBeGreaterThan(0);
+      const payload = notifications[0].payload as {
+        productId: number;
+        oldPrice: number;
+        newPrice: number;
+      };
+      expect(payload.productId).toBe(product1.id);
+      expect(payload.oldPrice).toBe(10000);
+      expect(payload.newPrice).toBe(15000);
     });
   });
 
@@ -341,21 +397,22 @@ describe('상품 API 테스트', () => {
     });
   });
   describe('POST /products/:id/favorites', () => {
-    test('ID로 상품을 검색하여 존재하지 않는 ID는 404를 반환한다', async () => {
-      const notProductId = 9999;
-      const response = await request(app).get(`/products/${notProductId}`);
-      expect(response.status).toBe(404);
-      expect(response.body.message).toBe(`product with id ${notProductId} not found`);
-    });
     test('로그인되지 않은 유저가 상품에 좋아요 요청 시 401을 반환한다.', async () => {
       const user = await createTestUser();
       const product1 = await createTestProduct(user.id, {
         name: '테스트 Product1',
         tags: ['주방용품'],
       });
+
       const response = await request(app).post(`/products/${product1.id}/favorites`);
       expect(response.status).toBe(401);
       expect(response.body.message).toBe('Unauthorized');
+    });
+    test('ID로 상품을 검색하여 존재하지 않는 ID는 404를 반환한다', async () => {
+      const notProductId = 9999;
+      const response = await request(app).get(`/products/${notProductId}`);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe(`product with id ${notProductId} not found`);
     });
     test('로그인한 유저가 상품에 좋아요 요청 시 201을 반환한다.', async () => {
       const { agent, user } = await registerAndLogin();
