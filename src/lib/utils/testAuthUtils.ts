@@ -10,10 +10,10 @@ export const registerAndLogin = async () => {
     nickname: 'test User',
   });
 
-  await agent.post('/auth/login').send({
+  const login = await agent.post('/auth/login').send({
     email: 'test@example.com',
     password: 'password',
   });
 
-  return { agent, user };
+  return { agent, user, login };
 };

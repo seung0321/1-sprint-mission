@@ -17,7 +17,7 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
   await authService.logout(res);
-  return res.status(200).send();
+  return res.status(204).send();
 };
 
 export const refreshToken = async (req: Request, res: Response) => {
