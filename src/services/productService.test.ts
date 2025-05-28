@@ -3,7 +3,6 @@ import { productRepository } from '../repositories/productRepository';
 import { notificationService } from './notificationService';
 import NotFoundError from '../lib/errors/NotFoundError';
 import ForbiddenError from '../lib/errors/ForbiddenError';
-import BadRequestError from '../lib/errors/BadRequestError';
 import { io, userSockets } from './socketService';
 
 jest.mock('../repositories/productRepository');
