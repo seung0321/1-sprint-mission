@@ -9,9 +9,6 @@ import {
   GetArticleListParamsStruct,
 } from '../structs/articlesStructs';
 import { CreateCommentBodyStruct, GetCommentListParamsStruct } from '../structs/commentsStruct';
-import { userSockets, io } from '../services/socketService';
-import { notificationService } from '../services/notificationService';
-import { NotificationType } from '@prisma/client';
 
 export const createArticle = async (req: Request, res: Response) => {
   const { title, content } = create(req.body, CreateArticleBodyStruct);
@@ -53,38 +50,7 @@ export const createComment = async (req: Request, res: Response) => {
   const { id: articleId } = create(req.params, IdParamsStruct);
   const { content } = create(req.body, CreateCommentBodyStruct);
 
-  // 댓글 생성
   const comment = await articleService.createComment(articleId, content, req.user!.id);
-
-  // 게시글 작성자 ID 조회 (예: articleService에서 article.userId 반환)
-  const article = await prismaClient.article.findUnique({
-    where: { id: articleId },
-    select: { userId: true },
-  });
-
-  if (article && article.userId !== req.user!.id) {
-    const payload = {
-      articleId,
-      commentId: comment.id,
-      content, // 댓글 내용도 payload에 포함할 수 있음
-    };
-
-    // 🔸 1. 알림 DB 저장
-    await notificationService.createNotification({
-      userId: article.userId,
-      type: NotificationType.create_comment,
-      payload,
-    });
-
-    // 🔸 2. 실시간 알림 전송
-    const targetSocketId = userSockets.get(article.userId);
-    if (targetSocketId) {
-      io.to(targetSocketId).emit('notification', {
-        type: NotificationType.create_comment,
-        payload,
-      });
-    }
-  }
 
   return res.status(201).send(comment);
 };

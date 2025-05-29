@@ -5,14 +5,14 @@ export const notificationRepository = {
   markAsRead: (id: number) => {
     return prismaClient.notification.update({
       where: { id },
-      data: { read: true },
+      data: { is_read: true },
     });
   },
 
   markAllAsRead: (userId: number) => {
     return prismaClient.notification.updateMany({
-      where: { userId, read: false },
-      data: { read: true },
+      where: { userId, is_read: false },
+      data: { is_read: true },
     });
   },
 

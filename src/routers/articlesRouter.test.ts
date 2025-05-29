@@ -310,7 +310,7 @@ describe('게시글 API 테스트', () => {
     const notifications = await prismaClient.notification.findMany({
       where: {
         userId: user2.id,
-        type: 'create_comment',
+        type: 'CREATE_COMMENT',
       },
     });
 

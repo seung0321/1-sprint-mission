@@ -29,13 +29,11 @@ export const productService = {
     if (existingProduct.userId !== userId)
       throw new ForbiddenError('You are not the owner of this product');
 
-    // 가격이 바뀌었는지 확인
     const oldPrice = existingProduct.price;
     const newPrice = data.price;
 
     const updatedProduct = await productRepository.updateProduct(id, data);
 
-    // 가격이 변경된 경우
     if (newPrice !== undefined && oldPrice !== newPrice) {
       const favoritedUsers = existingProduct.favorites.map((f) => f.userId);
 
@@ -45,19 +43,18 @@ export const productService = {
         newPrice,
       };
 
-      // 알림 저장 및 전송
       await Promise.all(
         favoritedUsers.map(async (userId) => {
           await notificationService.createNotification({
             userId,
-            type: NotificationType.price_fluctuation,
+            type: NotificationType.PRICE_FLUCTUATION,
             payload,
           });
 
           const targetSocketId = userSockets.get(userId);
           if (targetSocketId) {
             io.to(targetSocketId).emit('notification', {
-              type: NotificationType.price_fluctuation,
+              type: NotificationType.PRICE_FLUCTUATION,
               payload,
             });
           }

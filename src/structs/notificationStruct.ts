@@ -13,8 +13,8 @@ const CreateCommentPayloadStruct = object({
 });
 
 export const NotificationTypeStruct = union([
-  literal('price_fluctuation'),
-  literal('create_comment'),
+  literal('PRICE_FLUCTUATION'),
+  literal('CREATE_COMMENT'),
 ]);
 
 export const NotificationPayloadStruct = union([

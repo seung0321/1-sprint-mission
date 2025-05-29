@@ -2,6 +2,9 @@ import NotFoundError from '../lib/errors/NotFoundError';
 import BadRequestError from '../lib/errors/BadRequestError';
 import ForbiddenError from '../lib/errors/ForbiddenError';
 import { articleRepository } from '../repositories/articleRepository';
+import { userSockets, io } from '../services/socketService';
+import { notificationService } from '../services/notificationService';
+import { NotificationType } from '@prisma/client';
 
 export const articleService = {
   async createArticle(title: string, content: string, userId: number) {
@@ -59,7 +62,31 @@ export const articleService = {
     const article = await articleRepository.getArticleById(articleId);
     if (!article) throw new NotFoundError('article', articleId);
 
-    return articleRepository.createComment(articleId, content, userId);
+    const comment = await articleRepository.createComment(articleId, content, userId);
+
+    if (article.userId !== userId) {
+      const payload = {
+        articleId,
+        commentId: comment.id,
+        content,
+      };
+
+      await notificationService.createNotification({
+        userId: article.userId,
+        type: NotificationType.CREATE_COMMENT,
+        payload,
+      });
+
+      const targetSocketId = userSockets.get(article.userId);
+      if (targetSocketId) {
+        io.to(targetSocketId).emit('notification', {
+          type: NotificationType.CREATE_COMMENT,
+          payload,
+        });
+      }
+    }
+
+    return comment;
   },
 
   async getComments(articleId: number, cursor?: number, limit: number = 10) {

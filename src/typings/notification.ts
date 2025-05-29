@@ -1,4 +1,4 @@
-export type NotificationType = 'price_fluctuation' | 'create_comment';
+export type NotificationType = 'PRICE_FLUCTUATION' | 'CREATE_COMMENT';
 
 export type PriceFluctuationPayload = {
   productId: number;

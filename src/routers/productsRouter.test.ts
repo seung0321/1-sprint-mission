@@ -233,7 +233,7 @@ describe('상품 API 테스트', () => {
       const notifications = await prismaClient.notification.findMany({
         where: {
           userId: user.body.id,
-          type: 'price_fluctuation',
+          type: 'PRICE_FLUCTUATION',
         },
       });
 

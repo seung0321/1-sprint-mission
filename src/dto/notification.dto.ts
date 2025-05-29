@@ -7,5 +7,5 @@ export type NotificationResponseDTO = {
   userId: number;
   type: NotificationType;
   payload: NotificationPayload;
-  read: boolean;
+  is_read: boolean;
 };

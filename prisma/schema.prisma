@@ -96,12 +96,12 @@ model Notification {
   userId    Int
   type      NotificationType
   payload   Json
-  read      Boolean          @default(false)
+  is_read   Boolean          @default(false)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
 }
 
 enum NotificationType {
-  price_fluctuation
-  create_comment
+  PRICE_FLUCTUATION
+  CREATE_COMMENT
 }

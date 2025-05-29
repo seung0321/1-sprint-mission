@@ -108,7 +108,7 @@ export const userRepository = {
     }
 
     const unreadCount = await prismaClient.notification.count({
-      where: { userId, read: false },
+      where: { userId, is_read: false },
     });
 
     return {
