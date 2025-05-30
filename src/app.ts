@@ -27,9 +27,6 @@ app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/notification', notificationrouter);
 
-app.use(defaultNotFoundHandler);
-app.use(globalErrorHandler);
-
 app.get('/crash', (req, res) => {
   res.send('서버를 죽입니다');
   process.exit(1);
@@ -44,5 +41,8 @@ app.get('/stderr', (req, res) => {
   console.error('에러 로그');
   res.send('stderr 요청');
 });
+
+app.use(defaultNotFoundHandler);
+app.use(globalErrorHandler);
 
 export default app;
