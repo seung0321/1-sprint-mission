@@ -34,6 +34,7 @@ app.get('/crash', (req, res) => {
 
 app.get('/stdout', (req, res) => {
   console.log('일반 로그');
+  console.log(process.env.NODE_ENV);
   res.send('stdout 요청');
 });
 
