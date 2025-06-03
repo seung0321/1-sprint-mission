@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
-import { generateImageUrl } from '../services/imageService';
+import { uploadImageToS3 } from '../services/imageService';
 
 export async function uploadImage(req: Request, res: Response) {
-  const host = req.get('host');
-  if (!host) {
-    return res.status(400).send({ message: 'Host header is missing' });
-  }
   if (!req.file) {
     return res.status(400).send({ message: 'No file uploaded' });
   }
 
-  const url = generateImageUrl(host, req.file.filename);
-  return res.status(201).send({ url });
+  try {
+    const url = await uploadImageToS3(req.file);
+    return res.status(201).send({ url });
+  } catch (err) {
+    console.error('S3 업로드 에러', err);
+    return res.status(500).send({ message: '업로드 실패' });
+  }
 }
