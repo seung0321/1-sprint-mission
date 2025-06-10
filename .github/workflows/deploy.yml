@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -19,7 +19,7 @@ jobs:
           port: 22
           script: |
             cd /home/ec2-user/ci-cd-example # EC2 인스턴스 내 프로젝트 경로로 진입
-            git pull origin master # 코드 최신화
+            git pull origin main # 코드 최신화
             npm install
             npm run build
             pm2 reload npm # PM2로 재실행
