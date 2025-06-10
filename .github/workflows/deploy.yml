@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: 22
           script: |
-            cd /home/ec2-user/ci-cd-example 
+            cd /home/ec2-user/1-sprint-mission
             git pull origin main 
             npm install
             npm run build
