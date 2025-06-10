@@ -1,0 +1,18 @@
+# Local files
+.vscode/
+node_modules/
+.env*
+!.env.example
+coverage/
+
+# Uploaded files
+public/*
+!public/.gitkeep
+!public/index.html
+
+#ts/js
+dist/
+
+#request
+tests/note/
+tests/*
