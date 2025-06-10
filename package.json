@@ -3,11 +3,14 @@
     "start": "node dist/main.js",
     "dev": "nodemon --watch src src/main.ts",
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "ts-node prisma/seed.ts",
+    "prisma:deploy": "npx prisma migrate deploy && npx prisma generate",
     "test": "dotenv -e .env.test -- npm run prisma:migrate && dotenv -e .env.test -- jest -i",
-    "coverage": "dotenv -e .env.test -- npm run prisma:migrate && dotenv -e .env.test -- jest -i --coverage"
+    "coverage": "dotenv -e .env.test -- npm run prisma:migrate && dotenv -e .env.test -- jest -i --coverage",
+    "test:ci": "jest"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
