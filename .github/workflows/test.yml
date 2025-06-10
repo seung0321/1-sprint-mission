@@ -28,6 +28,9 @@ jobs:
         run: |
           echo "DATABASE_URL=${{ secrets.DATABASE_URL_TEST }}" > .env.test
 
+      - name: Show .env.test content
+        run: cat .env.test
+
       - name: Install dependencies
         run: npm install
 
