@@ -16,3 +16,6 @@ dist/
 #request
 tests/note/
 tests/*
+
+#upload file
+uploads/

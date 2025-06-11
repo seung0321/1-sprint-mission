@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { uploadImageToS3 } from '../services/imageService';
+import { uploadImages } from '../services/imageService';
 
 export async function uploadImage(req: Request, res: Response) {
   if (!req.file) {
@@ -7,10 +7,9 @@ export async function uploadImage(req: Request, res: Response) {
   }
 
   try {
-    const url = await uploadImageToS3(req.file);
+    const url = await uploadImages(req.file);
     return res.status(201).send({ url });
-  } catch (err) {
-    console.error('S3 업로드 에러', err);
+  } catch {
     return res.status(500).send({ message: '업로드 실패' });
   }
 }
