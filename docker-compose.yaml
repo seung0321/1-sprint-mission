@@ -1,0 +1,43 @@
+name: panda-market
+services:
+  server:
+    image: seunghee0/panda-market
+    build:
+      args:
+        - NODE_VERSION=20.13.1
+      dockerfile: Dockerfile
+      pull: true
+      context: .
+    container_name: panda-market
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+    networks:
+      - network-a
+    volumes:
+      - uploads:/app/uploads:rw
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - '5432:5432'
+    networks:
+      - network-a
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', '${POSTGRES_USER}']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+networks:
+  network-a:
+
+volumes:
+  uploads:
