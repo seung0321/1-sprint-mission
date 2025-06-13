@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../app';
+import app from '../main';
 import { prismaClient } from '../lib/prismaClient';
 import { clearDatabase } from '../lib/utils/testDeleteUtils';
 import { registerAndLogin } from '../lib/utils/testAuthUtils';

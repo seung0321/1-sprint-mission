@@ -43,3 +43,5 @@ createSocketServer(httpServer);
 httpServer.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
+export default app;
